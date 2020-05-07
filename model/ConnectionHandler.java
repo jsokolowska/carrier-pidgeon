@@ -10,13 +10,14 @@ public class ConnectionHandler extends Thread {
 
     @Override
     public void start() {
-        //recieve message
+        //receive message
+        Message msg = new Message("some text", 3);
         handleMsg(msg);
     }
     private String readMsgFromClient(){
-
+        return null;
     }
-    private void handleMsg(String msg){
-        System.out.println(msg);
+    private void handleMsg(Message msg){
+        System.out.println(msg.getMess());
     }
 }
