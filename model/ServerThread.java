@@ -5,28 +5,39 @@ import java.net.ServerSocket;
 
 public class ServerThread extends Thread {
     private ServerSocket serverSocket;
+    private static FileHandler fileHandler;
+    private static Logger logger;
     private int port;
+    static{
+        logger = Logger.getLogger(ServerThread.class.getName());
+        fileHandler = new FileHandler(ServerThread.class.getName());
+    }
 
     @Override
-    public synchronized void  start (){
+    public void  start throws IOException(){
         try{
             serverSocket = new ServerSocket(port);
+            while(true){
+                Socket clientSocket = serverSocket.accept();
+                new ConnectionHandler(clientSocket).start();
+            }
 
-        }catch (IOException ignored){
-            //log that sth went wrong
-            //quit showing some error
+        }catch (IOException e){
+            logServerCreationFailure("Could not create Server Thread: " + this);
+            //System.out.println("Could not create Server Thread -quiting?");
+            throw e;
         }
     }
     public ServerThread(int port){
         this.port = port;
     }
-    /*
-     * server info - peerinfo?
-     * run()
-     * constructor
-     * wait for for conection
-     * accept it
-     * handle it
-     *
-     */
+
+    private void logServerCreationFailure(String msg){
+        logger = Logger.getLogger(ServerThread.class.getName());
+        fileHandler =
+
+    }
+    public String toString(){
+        return "ServerThread on port " + port;
+    }
 }

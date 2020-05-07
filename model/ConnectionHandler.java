@@ -9,7 +9,14 @@ public class ConnectionHandler extends Thread {
     }
 
     @Override
-    public synchronized void start() {
-        super.start();
+    public void start() {
+        //recieve message
+        handleMsg(msg);
+    }
+    private String readMsgFromClient(){
+
+    }
+    private void handleMsg(String msg){
+        System.out.println(msg);
     }
 }
