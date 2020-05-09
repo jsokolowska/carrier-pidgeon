@@ -9,39 +9,43 @@ import java.util.logging.Logger;
 
 public class ServerThread extends Thread {
     private ServerSocket serverSocket;
-    private static FileHandler fileHandler;
-    private static Logger logger;
-    private int port;
+    private static FileHandler fhandl;
+    private static final Logger LOGGER;
+    private final int PORT;
     static{
-        logger = Logger.getLogger(ServerThread.class.getName());
+        LOGGER = Logger.getLogger(ServerThread.class.getName());
     }
 
     @Override
     public void  start(){
         try{
-            serverSocket = new ServerSocket(port);
+            serverSocket = new ServerSocket(PORT);
             while(true){
                 Socket clientSocket = serverSocket.accept();
                 new ConnectionHandler(clientSocket).start();
+                //todo - finish connection without an exception
             }
 
         }catch (IOException e){
-            try {
-                fileHandler = new FileHandler(ServerThread.class.getName());
-            } catch (IOException exception) {
-                e.printStackTrace();
+            if(fhandl==null){
+                try {
+                    fhandl = new FileHandler(ServerThread.class.getName());
+                } catch (IOException exception) {
+                    e.printStackTrace();
+                }
             }
-            logger.setLevel(Level.SEVERE);
-            logger.info("Log directed to file");
-            logger.info("Could not create server Socket:" + this);
+
+            LOGGER.setLevel(Level.SEVERE);
+            LOGGER.info("Log directed to file");
+            LOGGER.info("Could not create server Socket:" + this);
             System.out.println("Could not create Server Thread -quiting?");
         }
     }
-    public ServerThread(int port){
-        this.port = port;
+    public ServerThread(int PORT){
+        this.PORT = PORT;
     }
 
     public String toString(){
-        return "ServerThread on port " + port;
+        return "ServerThread on port " + PORT;
     }
 }
