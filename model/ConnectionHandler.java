@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ConnectionHandler extends Thread {
-    private Socket PEER_SOCKET;
+    private final Socket PEER_SOCKET;
     private DataInputStream in;
     private static final Logger LOGGER;
     private static FileHandler fhandl;
