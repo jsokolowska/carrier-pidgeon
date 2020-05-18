@@ -19,7 +19,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField id="peerName" promptText="e.g.Mike">
+                  <TextField fx:id="peerName" promptText="e.g.Mike">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin></TextField>
@@ -32,7 +32,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField id="peerIP" promptText="e.g. 127.0.0.1 ">
+                  <TextField fx:id="peerIP" promptText="e.g. 127.0.0.1 ">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin></TextField>
@@ -45,7 +45,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField id="peerPort" promptText="e.g. 5000">
+                  <TextField fx:id="peerPort" promptText="e.g. 5000">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
