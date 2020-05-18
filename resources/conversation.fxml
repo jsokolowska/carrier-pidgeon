@@ -18,39 +18,11 @@
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu mnemonicParsing="false" text="Go">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
+            <MenuItem fx:id="menuHome" mnemonicParsing="false" text="Home" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem id="menuQuit" mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
       </menus>
@@ -59,14 +31,14 @@
       <children>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="410.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="showPeerInfo" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="640.0" text="Your conversation with" textAlignment="CENTER">
+                  <Label id="conversationLabel" fx:id="showPeerInfo" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="640.0" text="Your conversation with" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                   <ScrollPane prefHeight="352.0" prefWidth="640.0">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="622.0" prefWidth="619.0">
+                      <AnchorPane id="conversationPane" minHeight="0.0" minWidth="0.0" prefHeight="622.0" prefWidth="619.0">
                            <children>
                               <VBox prefHeight="622.0" prefWidth="619.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
@@ -75,12 +47,12 @@
                   </ScrollPane>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextArea prefHeight="100.0" prefWidth="560.0" promptText="Wpisz wiadomość tutaj">
+                        <TextArea id="messageText" prefHeight="100.0" prefWidth="560.0" promptText="Wpisz wiadomość tutaj">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </TextArea>
-                        <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="100.0" text="Send">
+                        <Button id="messageSend" mnemonicParsing="false" prefHeight="62.0" prefWidth="100.0" text="Send" textFill="#070707">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
