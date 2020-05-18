@@ -16,26 +16,26 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Login" />
-                  <TextField id="loginField" />
+                  <TextField fx:id="loginField" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="62.0" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Password" />
-                  <PasswordField id="passwordField" />
+                  <PasswordField fx:id="passwordField" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Repeat password" />
-                  <PasswordField id="repeatPassField" />
+                  <PasswordField fx:id="repeatPassField" />
                </children>
             </HBox>
-            <Button id="signUpButton" mnemonicParsing="false" text="Sing up" />
+            <Button fx:id="signUpButton" mnemonicParsing="false" text="Sing up" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Already signed up? " />
-                  <Button id="toLogIn" mnemonicParsing="false" text="Log in" />
+                  <Button fx:id="toLogIn" mnemonicParsing="false" text="Log in" />
                </children>
             </HBox>
          </children>
