@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="controller.SignUpController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,10 +24,10 @@
                <menus>
                   <Menu mnemonicParsing="false" text="General">
                      <items>
-                        <MenuItem fx:id="menuHome" mnemonicParsing="false" text="Home" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="menuLogOut" mnemonicParsing="false" text="Log out" />
-                        <MenuItem fx:id="menuQuit" mnemonicParsing="false" text="Quit" />
+                         <MenuItem fx:id="menuHome" onAction="#goHome" mnemonicParsing="false" text="Home" />
+                         <SeparatorMenuItem mnemonicParsing="false" />
+                         <MenuItem fx:id="menuLogOut" onAction="#logOut" mnemonicParsing="false" text="Log out" />
+                         <MenuItem fx:id="menuQuit" onAction="#quit" mnemonicParsing="false" text="Quit" />
                      </items>
                   </Menu>
                </menus>

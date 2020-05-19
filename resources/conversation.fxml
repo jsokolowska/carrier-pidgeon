@@ -15,16 +15,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="controller.ConversationController" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar style="-fx-background-color: lightgray;" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="General">
           <items>
-            <MenuItem fx:id="menuHome" mnemonicParsing="false" text="Home" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="menuLogOut" mnemonicParsing="false" text="Log out" />
-            <MenuItem fx:id="menuQuit" mnemonicParsing="false" text="Quit" />
+              <MenuItem fx:id="menuHome" onAction="#goHome" mnemonicParsing="false" text="Home" />
+              <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="menuLogOut" onAction="#logOut" mnemonicParsing="false" text="Log out" />
+              <MenuItem fx:id="menuQuit" onAction="#quit" mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
       </menus>
@@ -46,14 +46,14 @@
                                  <children>
                                     <HBox>
                                        <children>
-                                          <VBox alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="506.0" style="-fx-background-color: wheat;">
+                                          <VBox alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="506.0" style="-fx-background-color: #fcfbfb;">
                                              <children>
                                                 <Text fx:id="sbMsgSample" layoutX="10.0" layoutY="23.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae auctor est. Praesent pharetra sem ex, nec imperdiet nunc tempus iaculis. Sed suscipit venenatis mauris. Proin sodales metus ut augue tincidunt, et iaculis elit scelerisque. Sed a sodales turpis. Nunc. " wrappingWidth="500.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fill="#5e5959" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="19:03">
+                                                <Text fill="#b2aeae" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="19:03">
                                                    <font>
                                                       <Font size="12.0" />
                                                    </font>
@@ -73,7 +73,7 @@
                                     </HBox>
                                     <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <VBox fx:id="myMsgSample" alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="463.0" style="-fx-background-color: lemonchiffon lemonchiffon;">
+                                          <VBox fx:id="myMsgSample" alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="463.0" style="-fx-background-color: #fcfcfc #ffffff;">
                                              <children>
                                                 <Text layoutX="10.0" layoutY="23.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color: honeydew;" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae auctor est. Praesent pharetra sem ex, nec imperdiet nunc tempus iaculis. Sed suscipit venenatis mauris. Proin sodales metus ut augue tincidunt, et iaculis elit scelerisque. Sed a sodales turpis. Nunc. " wrappingWidth="492.0">
                                                    <font>
@@ -83,7 +83,7 @@
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </VBox.margin>
                                                 </Text>
-                                                <Text fill="#5e5959" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20:45">
+                                                <Text fill="#ffffff" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20:45">
                                                    <font>
                                                       <Font size="12.0" />
                                                    </font>
@@ -110,7 +110,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </TextArea>
-                        <Button fx:id="sendButton" mnemonicParsing="false" prefHeight="62.0" prefWidth="100.0" style="-fx-border-color: gold; -fx-background-color: yellow;" text="Send" textFill="#070707">
+                        <Button fx:id="sendButton" mnemonicParsing="false" prefHeight="62.0" prefWidth="100.0" text="Send" textFill="#070707">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
