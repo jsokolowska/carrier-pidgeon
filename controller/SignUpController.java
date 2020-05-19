@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * @author Joanna Sokołowska
@@ -12,11 +13,32 @@ import javafx.scene.control.TextField;
 
 public class SignUpController extends MenuController{
     @FXML
-    public TextField loginField;
+    private PasswordField repeatPassField;
     @FXML
-    public PasswordField passwordField;
+    private TextField loginField;
     @FXML
-    public Button toLogIn;
+    private PasswordField passwordField;
     @FXML
-    public Button signUp;
+    private Button toLogIn;
+    @FXML
+    private Button signUpButton;
+
+    @FXML
+    private void moveToLogInScene(){
+        System.out.println("Changing to log in screen");
+        Stage currStage = (Stage) toLogIn.getScene().getWindow();
+        FXMLResources.currentScene = SceneTypes.LOGIN;
+        currStage.setScene(FXMLResources.loginScene);
+    }
+
+    @FXML
+    private void tryToSignUp(){
+        /*System.out.println("Changing to sign up screen");
+        Stage currStage = (Stage) toLogIn.getScene().getWindow();
+        currStage.setScene(FXMLResources.loginScene);*/
+    }
+
+    private void clean(){
+        //todo implement clean up funxtion for SingUp and login controllers
+    }
 }
