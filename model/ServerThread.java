@@ -7,6 +7,10 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Joanna Sokołowska
+ */
+
 public class ServerThread extends Thread {
     private ServerSocket serverSocket;
     private static FileHandler fhandl;

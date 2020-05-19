@@ -12,16 +12,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="controller.ContactsController" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu id="goMenu" mnemonicParsing="false" text="General">
           <items>
-            <MenuItem fx:id="menuHome" mnemonicParsing="false" text="Home" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="menuLogOut" mnemonicParsing="false" text="Log out" />
-            <MenuItem fx:id="menuQuit" mnemonicParsing="false" text="Quit" />
+              <MenuItem fx:id="menuHome" onAction="#goHome" mnemonicParsing="false" text="Home" />
+              <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="menuLogOut" onAction="#logOut" mnemonicParsing="false" text="Log out" />
+              <MenuItem fx:id="menuQuit" onAction="#quit" mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
       </menus>

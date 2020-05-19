@@ -8,6 +8,10 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Joanna Sokołowska
+ */
+
 public class ConnectionHandler extends Thread {
     private final Socket PEER_SOCKET;
     private DataInputStream in;
