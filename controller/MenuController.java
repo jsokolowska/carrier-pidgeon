@@ -1,33 +1,48 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 /**
  * @author Joanna Sokołowska
  */
 public class MenuController {
     @FXML
-    public MenuItem menuHome;
+    private MenuItem menuHome;
     @FXML
-    public MenuItem menuLogOut;
+    private MenuItem menuLogOut;
     @FXML
-    public MenuItem menuQuit;
+    private MenuItem menuQuit;
+    @FXML
+    private MenuBar menuBar;
 
     @FXML
     private void goHome(){
         System.out.println("Switching to home screen...");
-        //change scene to connection scene if user is logged in
+        Stage currStage = (Stage) menuBar.getScene().getWindow();
+        if(FXMLResources.currentScene != SceneTypes.CONTACTS){  //todo add condition if somebody is logged in
+            FXMLResources.currentScene = SceneTypes.CONTACTS;
+            currStage.setScene(FXMLResources.contactsScene);
+        }
     }
     @FXML
     private void logOut(){
         System.out.println("Logging out...");
-        //end current session
-        //change to log in screen
+        //if(Session.isInProgress()){
+        //      //log out
+                //FXMLResources.currentScene = SceneTypes.LOGIN;
+        //      change screen()
+        //}else{
+        // do nothing()
+        //}
     }
     @FXML
     private void quit (){
         System.out.println("Quitiing...");
+        Stage currStage = (Stage) menuBar.getScene().getWindow();
+        currStage.close();
         //clean up resources and close all windows
     }
 }

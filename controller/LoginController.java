@@ -4,10 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,41 +17,46 @@ import java.io.IOException;
 
 public class LoginController extends MenuController {
     @FXML
-    public TextField loginField;
+    private TextField loginField;
     @FXML
-    public PasswordField passwordField;
+    private PasswordField passwordField;
     @FXML
-    public Button logIn;
+    private Button logIn;
     @FXML
-    public Button toSignUp;
+    private Button toSignUp;
+    @FXML
+    Text incorrectText;
 
-    private Scene signUpScene = null;
-
-    public LoginController (){
-        try{
-            Parent signUp = FXMLLoader.load(getClass().getResource("/resources/signUp.fxml"));
-            signUpScene = new Scene(signUp);
-        }catch (IOException ex){
-            System.out.println("Couldn't load signUp screen");
-        }
-    }
+    public LoginController (){}
 
 
     @FXML
-    public void tryToLogIn(){
+    private void tryToLogIn(){
         System.out.println("You tried to log in with name: " + loginField.getText());
+        System.out.println("And here's your password: + " + passwordField.getText());
+        incorrectText.setText("Incorrect login or password!");
+        int userId = 1;
         //get data
-        //validate data
-        //if not right display message
-        //if right change scene
+        //passwordHash = passwordField.getText().hash();
+        //userId = Session.checkCredentials(loginField.getText(), passwordHash);
+       if(userId == 0){
+              incorrectText.setText("Incorrect login or password!");
+       }else {
+           Stage currStage = (Stage) logIn.getScene().getWindow();
+           FXMLResources.currentScene = SceneTypes.CONTACTS;
+           currStage.setScene(FXMLResources.contactsScene);
+       }
     }
 
     @FXML
-    public void moveToSignUpScene(){
+    private void moveToSignUpScene(){
         System.out.println("Changing to sign up screen");
-        if (signUpScene != null){
-            Stage loginStage = (Stage) toSignUp.getScene().getWindow();
-            loginStage.setScene(signUpScene);
-        }
+        Stage currStage = (Stage) toSignUp.getScene().getWindow();
+        FXMLResources.currentScene = SceneTypes.SIGNUP;
+        currStage.setScene(FXMLResources.signupScene);
+    }
+
+    private void clean(){
+        //todo Implement clean function for signup and login controllers
     }
 }

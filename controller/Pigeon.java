@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+
 /**
  * @author Joanna Sokołowska
  */
@@ -16,14 +18,23 @@ public class Pigeon extends Application {
     }
     @Override
     public void start(@NotNull Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/resources/logIn.fxml"));
-        //primaryStage.setOnCloseRequest(e-> cleanUpResources()); //close event needs to be consumed if you want to not close the program after all...
-        Scene scene = new Scene(loader.load());
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        try{
+            FXMLResources fxmlResources = new FXMLResources();
+            fxmlResources.loadAllResources();
+            primaryStage.setScene(FXMLResources.loginScene);
+            primaryStage.setTitle("Carrier Pigeon");
+            FXMLResources.currentScene = SceneTypes.LOGIN;
+            primaryStage.setOnCloseRequest(e-> cleanUpResources()); //close event needs to be consumed if you want to not close the program after all...
+            primaryStage.show();
+        }catch (IOException exception){
+            System.out.println("FATAL ERROR: Could not load visual resources");
+        }
+
+
+
     }
     private void cleanUpResources (){
+        System.out.println("Cleaning up resources...");
         //clean up resources
     }
 }

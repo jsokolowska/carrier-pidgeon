@@ -15,19 +15,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane  fx:controller="controller.LoginController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar prefHeight="29.0" prefWidth="600.0">
+            <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="600.0">
                <menus>
                   <Menu mnemonicParsing="false" text="General">
                      <items>
-                        <MenuItem fx:id="menuHome" onAction="#goHome" mnemonicParsing="false" text="Home" />
+                        <MenuItem fx:id="menuHome" mnemonicParsing="false" onAction="#goHome" text="Home" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="menuLogOut" onAction="#logOut" mnemonicParsing="false" text="Log out" />
-                        <MenuItem fx:id="menuQuit" onAction="#quit" mnemonicParsing="false" text="Quit" />
+                        <MenuItem fx:id="menuLogOut" mnemonicParsing="false" onAction="#logOut" text="Log out" />
+                        <MenuItem fx:id="menuQuit" mnemonicParsing="false" onAction="#quit" text="Quit" />
                      </items>
                   </Menu>
                </menus>
@@ -50,11 +52,19 @@
                         <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <Button fx:id="logIn" onAction="#tryToLogIn" mnemonicParsing="false" text="Log in">
-                     <VBox.margin>
-                        <Insets bottom="40.0" />
-                     </VBox.margin>
-                  </Button>
+                  <HBox prefHeight="33.0" prefWidth="305.0">
+                     <children>
+                        <Text fx:id="incorrectText" fill="#e81818" stroke="#e81111" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="230.0">
+                           <HBox.margin>
+                              <Insets right="10.0" top="8.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="logIn" mnemonicParsing="false" onAction="#tryToLogIn" prefHeight="26.0" prefWidth="67.0" text="Log in" />
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="305.0">
                      <children>
                         <Label text="New here?">
@@ -62,7 +72,7 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </Label>
-                        <Button onAction="#moveToSignUpScene" fx:id="toSignUp" mnemonicParsing="false" text="Sing up" />
+                        <Button fx:id="toSignUp" mnemonicParsing="false" onAction="#moveToSignUpScene" text="Sing up" />
                      </children>
                   </HBox>
                </children>
