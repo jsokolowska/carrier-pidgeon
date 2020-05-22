@@ -25,14 +25,15 @@ public class SignUpController extends MenuController{
 
     @FXML
     private void moveToLogInScene(){
-        System.out.println("Changing to log in screen");
         Stage currStage = (Stage) toLogIn.getScene().getWindow();
-        FXMLResources.currentScene = SceneTypes.LOGIN;
-        currStage.setScene(FXMLResources.loginScene);
+        currStage.setScene(FXMLResources.getLoginScene());
     }
 
     @FXML
     private void tryToSignUp(){
+        loginField.setText("");
+        passwordField.setText("");
+        //incorrectText.setText("");
         /*System.out.println("Changing to sign up screen");
         Stage currStage = (Stage) toLogIn.getScene().getWindow();
         currStage.setScene(FXMLResources.loginScene);*/

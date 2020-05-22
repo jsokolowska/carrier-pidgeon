@@ -33,7 +33,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Label>
-            <Button fx:id="newConnectionButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="Add new contact">
+            <Button fx:id="newConnectionButton" onAction="#connect" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="Add new contact">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>

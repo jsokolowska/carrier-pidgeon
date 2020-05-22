@@ -8,7 +8,8 @@ import javafx.stage.Stage;
 /**
  * @author Joanna Sokołowska
  */
-public class MenuController {
+
+public abstract class MenuController {
     @FXML
     private MenuItem menuHome;
     @FXML
@@ -22,9 +23,8 @@ public class MenuController {
     private void goHome(){
         System.out.println("Switching to home screen...");
         Stage currStage = (Stage) menuBar.getScene().getWindow();
-        if(FXMLResources.currentScene != SceneTypes.CONTACTS){  //todo add condition if somebody is logged in
-            FXMLResources.currentScene = SceneTypes.CONTACTS;
-            currStage.setScene(FXMLResources.contactsScene);
+        if(FXMLResources.getCurrentScene()!= SceneTypes.CONTACTS){  //todo add condition if somebody is logged in
+            currStage.setScene(FXMLResources.getContactsScene());
         }
     }
     @FXML

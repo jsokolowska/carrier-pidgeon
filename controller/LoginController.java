@@ -9,8 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
  * @author Joanna Sokołowska
  */
@@ -32,9 +30,9 @@ public class LoginController extends MenuController {
 
     @FXML
     private void tryToLogIn(){
-        System.out.println("You tried to log in with name: " + loginField.getText());
-        System.out.println("And here's your password: + " + passwordField.getText());
-        incorrectText.setText("Incorrect login or password!");
+//        System.out.println("You tried to log in with name: " + loginField.getText());
+//        System.out.println("And here's your password: + " + passwordField.getText());
+        //incorrectText.setText("Incorrect login or password!");
         int userId = 1;
         //get data
         //passwordHash = passwordField.getText().hash();
@@ -42,9 +40,11 @@ public class LoginController extends MenuController {
        if(userId == 0){
               incorrectText.setText("Incorrect login or password!");
        }else {
+           loginField.setText("");
+           passwordField.setText("");
+           incorrectText.setText("");
            Stage currStage = (Stage) logIn.getScene().getWindow();
-           FXMLResources.currentScene = SceneTypes.CONTACTS;
-           currStage.setScene(FXMLResources.contactsScene);
+           currStage.setScene(FXMLResources.getContactsScene());
        }
     }
 
@@ -52,8 +52,7 @@ public class LoginController extends MenuController {
     private void moveToSignUpScene(){
         System.out.println("Changing to sign up screen");
         Stage currStage = (Stage) toSignUp.getScene().getWindow();
-        FXMLResources.currentScene = SceneTypes.SIGNUP;
-        currStage.setScene(FXMLResources.signupScene);
+        currStage.setScene(FXMLResources.getSignupScene());
     }
 
     private void clean(){
