@@ -9,13 +9,14 @@ import java.io.IOException;
 /**
  * @author Joanna Sokołowska
  */
+
 public class FXMLResources {
-    public static Scene loginScene;
-    public static Scene signupScene;
-    public static Scene contactsScene;
-    public static Scene conversationScene;
-    public static Scene newConnectionScene;
-    public static SceneTypes currentScene;
+    private static Scene loginScene;
+    private static Scene signupScene;
+    private static Scene contactsScene;
+    private static Scene conversationScene;
+    private static Scene newConnectionScene;
+    private static SceneTypes currentScene;
 
     public void loadAllResources () throws IOException{
         Parent login = FXMLLoader.load(getClass().getResource("/resources/logIn.fxml"));
@@ -30,4 +31,33 @@ public class FXMLResources {
         conversationScene = new Scene(conversation);
         newConnectionScene = new Scene(newConnection);
     }
+
+    public static Scene getLoginScene() {
+        currentScene = SceneTypes.LOGIN;
+        return loginScene;
+    }
+
+    public static Scene getSignupScene() {
+        currentScene = SceneTypes.SIGNUP;
+        return signupScene;
+    }
+
+    public static Scene getContactsScene() {
+        currentScene = SceneTypes.CONTACTS;
+        return contactsScene;
+    }
+
+    public static Scene getConversationScene() {
+        currentScene = SceneTypes.CONVERSATION;
+        return conversationScene;
+    }
+
+    public static Scene getNewConnectionScene() {
+        return newConnectionScene;
+    }
+
+    public static SceneTypes getCurrentScene() {
+        return currentScene;
+    }
+
 }
