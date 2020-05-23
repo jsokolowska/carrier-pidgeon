@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,7 +22,8 @@ public class Pigeon extends Application {
         try{
             FXMLResources fxmlResources = new FXMLResources();
             fxmlResources.loadAllResources();
-            primaryStage.setScene(FXMLResources.getLoginScene());
+            //primaryStage.setScene(FXMLResources.getLoginScene());
+            primaryStage.setScene(FXMLResources.getConversationScene());
             primaryStage.setTitle("Carrier Pigeon");
             primaryStage.setOnCloseRequest(e-> cleanUpResources()); //close event needs to be consumed if you want to not close the program after all...
             primaryStage.show();
