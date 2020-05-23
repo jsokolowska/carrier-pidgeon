@@ -18,11 +18,12 @@ public class FXMLResources {
     private static Scene newConnectionScene;
     private static SceneTypes currentScene;
 
+
     public void loadAllResources () throws IOException{
         Parent login = FXMLLoader.load(getClass().getResource("/resources/logIn.fxml"));
         Parent signup = FXMLLoader.load(getClass().getResource("/resources/signUp.fxml"));
         Parent contact = FXMLLoader.load(getClass().getResource("/resources/contacts.fxml"));
-        Parent conversation = FXMLLoader.load(getClass().getResource("/resources/conversation.fxml"));
+        Parent conversation =  FXMLLoader.load(getClass().getResource("/resources/conversation.fxml"));
         Parent newConnection = FXMLLoader.load(getClass().getResource("/resources/newConnection.fxml"));
 
         loginScene = new Scene(login);
@@ -59,5 +60,4 @@ public class FXMLResources {
     public static SceneTypes getCurrentScene() {
         return currentScene;
     }
-
 }

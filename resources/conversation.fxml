@@ -13,113 +13,56 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox fx:controller="controller.ConversationController" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <MenuBar fx:id="menuBar" style="-fx-background-color: lightgray;" VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="General">
-          <items>
-              <MenuItem fx:id="menuHome" onAction="#goHome" mnemonicParsing="false" text="Home" />
-              <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem fx:id="menuLogOut" onAction="#logOut" mnemonicParsing="false" text="Log out" />
-              <MenuItem fx:id="menuQuit" onAction="#quit" mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <children>
-            <VBox layoutX="10.0" layoutY="10.0" prefHeight="410.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label fx:id="conversationLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="640.0" style="-fx-background-color: white; -fx-border-color: lightgray;" text="Your conversation with" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane prefHeight="352.0" prefWidth="640.0" style="-fx-background-color: ivory;">
-                    <content>
-                      <AnchorPane id="conversationPane" minHeight="0.0" minWidth="0.0" prefHeight="622.0" prefWidth="619.0" style="-fx-background-color: white;">
-                           <children>
-                              <VBox fx:id="messageBox" prefHeight="622.0" prefWidth="619.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <HBox>
-                                       <children>
-                                          <VBox alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="506.0" style="-fx-background-color: #fcfbfb;">
-                                             <children>
-                                                <Text fx:id="sbMsgSample" layoutX="10.0" layoutY="23.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae auctor est. Praesent pharetra sem ex, nec imperdiet nunc tempus iaculis. Sed suscipit venenatis mauris. Proin sodales metus ut augue tincidunt, et iaculis elit scelerisque. Sed a sodales turpis. Nunc. " wrappingWidth="500.0">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Text>
-                                                <Text fill="#b2aeae" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="19:03">
-                                                   <font>
-                                                      <Font size="12.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets right="15.0" />
-                                                   </VBox.margin>
-                                                </Text>
-                                             </children>
-                                             <HBox.margin>
-                                                <Insets bottom="5.0" left="10.0" right="60.0" top="10.0" />
-                                             </HBox.margin>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox fx:id="myMsgSample" alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="463.0" style="-fx-background-color: #fcfcfc #ffffff;">
-                                             <children>
-                                                <Text layoutX="10.0" layoutY="23.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color: honeydew;" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae auctor est. Praesent pharetra sem ex, nec imperdiet nunc tempus iaculis. Sed suscipit venenatis mauris. Proin sodales metus ut augue tincidunt, et iaculis elit scelerisque. Sed a sodales turpis. Nunc. " wrappingWidth="492.0">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </Text>
-                                                <Text fill="#ffffff" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20:45">
-                                                   <font>
-                                                      <Font size="12.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets left="15.0" />
-                                                   </VBox.margin>
-                                                </Text>
-                                             </children>
-                                             <HBox.margin>
-                                                <Insets bottom="5.0" left="120.0" right="10.0" top="10.0" />
-                                             </HBox.margin>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                 </children></VBox>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
-                  <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
-                     <children>
-                        <TextArea fx:id="messageText" prefHeight="100.0" prefWidth="560.0" promptText="Write your message here...">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </TextArea>
-                        <Button fx:id="sendButton" mnemonicParsing="false" prefHeight="62.0" prefWidth="100.0" text="Send" textFill="#070707">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-      </children>
-    </AnchorPane>
-  </children>
+<VBox prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConversationController">
+    <children>
+        <MenuBar fx:id="menuBar" style="-fx-background-color: lightgray;" VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="General">
+                    <items>
+                        <MenuItem fx:id="menuHome" mnemonicParsing="false" onAction="#goHome" text="Home" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="menuLogOut" mnemonicParsing="false" onAction="#logOut" text="Log out" />
+                        <MenuItem fx:id="menuQuit" mnemonicParsing="false" onAction="#quit" text="Quit" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <children>
+                <VBox layoutX="10.0" layoutY="10.0" prefHeight="410.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label fx:id="conversationLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="640.0" style="-fx-background-color: white; -fx-border-color: lightgray;" text="Your conversation with" textAlignment="CENTER">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <ScrollPane fitToHeight="true" prefHeight="240.0" prefWidth="640.0">
+                            <content>
+                                <AnchorPane>
+                                    <children>
+                                        <VBox fx:id="messageBox" prefHeight="198.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </ScrollPane>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <TextArea fx:id="messageText" onKeyPressed="#onEnter" prefHeight="100.0" prefWidth="560.0" promptText="Write your message here...">
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                </TextArea>
+                                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#sendMsg" prefHeight="62.0" prefWidth="100.0" text="Send" textFill="#070707">
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
 </VBox>

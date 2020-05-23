@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox prefHeight="43.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MessageController">
+   <children>
+      <VBox alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="463.0" style="-fx-background-color: #ffeecc;">
+         <children>
+            <Text fx:id="myMsgText" layoutX="10.0" layoutY="23.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color: #ffcc66;" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." wrappingWidth="492.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Text>
+            <Text fx:id="myTimestamp" fill="#b9adad" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20:45">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="15.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+         <HBox.margin>
+            <Insets bottom="5.0" left="120.0" right="10.0" top="10.0" />
+         </HBox.margin>
+      </VBox>
+   </children>
+</HBox>

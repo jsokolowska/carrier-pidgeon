@@ -1,3 +1,5 @@
+package model;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -25,10 +27,11 @@ public class Peer {
             children.add(peer);
     }
 
-    public Peer(Peer peer, String nick,String host, int port) throws IOException
+    public Peer(Peer peer, String nick, String host, int port, ServerThread server) throws IOException
     {
         this.name = nick;
         this.port = port;
+        this.server = server;
 
         if( peer != null )
             children.add(peer);
