@@ -29,6 +29,9 @@ public abstract class MenuController {
     }
     @FXML
     private void logOut(){
+        if(FXMLResources.getCurrentScene() == SceneTypes.CONTACTS || FXMLResources.getCurrentScene() == SceneTypes.CONVERSATION){
+            //todo waiting: end session
+        }
         System.out.println("Logging out...");
         //if(Session.isInProgress()){
         //      //log out
@@ -43,6 +46,5 @@ public abstract class MenuController {
         System.out.println("Quitiing...");
         Stage currStage = (Stage) menuBar.getScene().getWindow();
         currStage.close();
-        //clean up resources and close all windows
     }
 }

@@ -8,7 +8,7 @@ import java.util.Date;
 public class Message {
 
     static final int maxLength = 15;
-    private int userID;
+    private int userID ;
     private int length;
     private String mess;
     private String sendTime;

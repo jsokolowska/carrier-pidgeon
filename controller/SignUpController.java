@@ -34,11 +34,14 @@ public class SignUpController extends MenuController{
         passwordField.setText("");
         //incorrectText.setText("");
         /*System.out.println("Changing to sign up screen");
-        Stage currStage = (Stage) toLogIn.getScene().getWindow();
+        Stage currStage = (Stage) signUpButton.getScene().getWindow();
         currStage.setScene(FXMLResources.loginScene);*/
     }
 
     private void clean(){
-        //todo implement clean up funxtion for SingUp and login controllers
+        loginField.setText("");
+        passwordField.setText("");
+        repeatPassField.setText("");
+        //incorrectText.setText("");
     }
 }

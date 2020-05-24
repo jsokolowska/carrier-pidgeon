@@ -26,18 +26,19 @@ public class ConversationController extends MenuController {
     private Label conversationLabel;
     @FXML
     private VBox messageBox;
-    /*todo in fxmlfile
-    *  - make sure that no growth is necessary with msg hbox
-    *  - change colors for sb msg
-    *  - remove label on top?
+    /*todo somehow manage message box grow - now information so far
     * */
+    @FXML
+    private void setName(String peerName){
+        conversationLabel.setText(conversationLabel.getText() + " " + peerName);
+    }
 
     @FXML
     private void sendMsg(){
             //todo actually send msg
-        //todo remove trailing blank characters, remove beginning blank characters
         String text = messageText.getText();
-        if(text.trim().length()>0){
+        text = text.trim();
+        if(text.length() >0){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/myMessage.fxml"));
             try{
                 HBox msg = loader.load();
@@ -53,12 +54,14 @@ public class ConversationController extends MenuController {
 
     @FXML
     private void onEnter(KeyEvent e){
-        if(e.getCode()==KeyCode.ENTER){
-            //todo allow for shift+enter to happen
-            sendMsg();
-            e.consume();
+        if(e.getCode()==KeyCode.ENTER ){
+            if(e.isShiftDown()){
+                messageText.appendText("\n");
+            }else{
+                sendMsg();
+                e.consume();
+            }
         }
-
     }
 
 }
