@@ -1,7 +1,10 @@
+package  model;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class ClientThread extends Thread
 {
