@@ -19,8 +19,8 @@ public class Pigeon extends Application {
         try{
             FXMLResources fxmlResources = new FXMLResources();
             fxmlResources.loadAllResources();
-            //primaryStage.setScene(FXMLResources.getLoginScene());
-            primaryStage.setScene(FXMLResources.getConversationScene());
+            primaryStage.setScene(FXMLResources.getLoginScene());
+            //primaryStage.setScene(FXMLResources.getConversationScene());
             primaryStage.setTitle("Carrier Pigeon");
             primaryStage.setOnCloseRequest(e-> cleanUpResources()); //close event needs to be consumed if you want to not close the program after all...
             primaryStage.show();
@@ -31,7 +31,7 @@ public class Pigeon extends Application {
     private void cleanUpResources (){
         System.out.println("Cleaning up resources...");
         /*todo save messages
-        save contacts?
-        clean up resources*/
+         * - save contacts?
+         * - clean up resources*/
     }
 }

@@ -38,9 +38,7 @@ public class LoginController extends MenuController {
        if(userId == 0){
               incorrectText.setText("Incorrect login or password!");
        }else {
-           loginField.setText("");
-           passwordField.setText("");
-           incorrectText.setText("");
+           clean();
            Stage currStage = (Stage) logIn.getScene().getWindow();
            currStage.setScene(FXMLResources.getContactsScene());
        }
@@ -54,6 +52,8 @@ public class LoginController extends MenuController {
     }
 
     private void clean(){
-        //todo Implement clean function for signup and login controllers
+        loginField.setText("");
+        passwordField.setText("");
+        incorrectText.setText("");
     }
 }

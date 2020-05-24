@@ -5,16 +5,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<HBox fx:controller="controller.MessageController" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<HBox prefHeight="43.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MessageController">
    <children>
-      <VBox alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="506.0" style="-fx-background-color: #fcfbfb;">
+      <VBox alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="506.0" style="-fx-background-color: #ffe1cc;">
          <children>
             <Text fx:id="sbMsgText" layoutX="10.0" layoutY="23.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae auctor est. Praesent pharetra sem ex, nec imperdiet nunc tempus iaculis. Sed suscipit venenatis mauris. Proin sodales metus ut augue tincidunt, et iaculis elit scelerisque. Sed a sodales turpis. Nunc. " wrappingWidth="500.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fx:id="sbTimestamp" fill="#b2aeae" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="19:03">
+            <Text fx:id="sbTimestamp" fill="#b9adad" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="19:03">
                <font>
                   <Font size="12.0" />
                </font>
