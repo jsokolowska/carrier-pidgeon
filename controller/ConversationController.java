@@ -25,11 +25,9 @@ public class ConversationController extends MenuController {
     @FXML
     private Label conversationLabel;
     @FXML
-    private VBox messageBox;
-    /*todo somehow manage message box grow - now information so far
-    * */
-    @FXML
-    private void setName(String peerName){
+    private VBox messageBox; //todo manage growth
+
+    public void setName(String peerName){
         conversationLabel.setText(conversationLabel.getText() + " " + peerName);
     }
 

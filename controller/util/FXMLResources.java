@@ -16,7 +16,7 @@ public class FXMLResources {
     private static Scene contactsScene;
     private static Scene conversationScene;
     private static Scene newConnectionScene;
-    private static SceneTypes currentScene;
+    private static SceneType currentScene;
 
 
     public void loadAllResources () throws IOException{
@@ -34,22 +34,22 @@ public class FXMLResources {
     }
 
     public static Scene getLoginScene() {
-        currentScene = SceneTypes.LOGIN;
+        currentScene = SceneType.LOGIN;
         return loginScene;
     }
 
     public static Scene getSignupScene() {
-        currentScene = SceneTypes.SIGNUP;
+        currentScene = SceneType.SIGN_UP;
         return signupScene;
     }
 
     public static Scene getContactsScene() {
-        currentScene = SceneTypes.CONTACTS;
+        currentScene = SceneType.CONTACTS;
         return contactsScene;
     }
 
     public static Scene getConversationScene() {
-        currentScene = SceneTypes.CONVERSATION;
+        currentScene = SceneType.CONVERSATION;
         return conversationScene;
     }
 
@@ -57,7 +57,7 @@ public class FXMLResources {
         return newConnectionScene;
     }
 
-    public static SceneTypes getCurrentScene() {
+    public static SceneType getCurrentScene() {
         return currentScene;
     }
 }

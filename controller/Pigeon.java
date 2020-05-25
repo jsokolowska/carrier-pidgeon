@@ -27,6 +27,7 @@ public class Pigeon extends Application {
             primaryStage.show();
         }catch (IOException exception){
             System.out.println("FATAL ERROR: Could not load visual resources");
+            exception.printStackTrace();
         }
     }
     private void cleanUpResources (){

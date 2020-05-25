@@ -27,7 +27,7 @@ public class ContactsController extends MenuController{
     @FXML
     private void initialize(){
         loader = new FXMLLoader(getClass().getResource("/resources/contactInfo.fxml"));
-        /*todo
+        /*todo (waiting)
         *  - load contact views according to info list
         */
     }
@@ -39,7 +39,7 @@ public class ContactsController extends MenuController{
         connectionStage.initModality(Modality.APPLICATION_MODAL);
         connectionStage.show();
     }
-    @FXML
+
     private void loadContactInfo(){
         try{
             Parent contact = loader.load();
