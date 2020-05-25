@@ -1,5 +1,7 @@
 package controller;
 
+import controller.util.FXMLResources;
+import controller.util.SceneTypes;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;

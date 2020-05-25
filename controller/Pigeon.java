@@ -1,5 +1,6 @@
 package controller;
 
+import controller.util.FXMLResources;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
