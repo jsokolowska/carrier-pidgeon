@@ -1,7 +1,7 @@
 package controller;
 
 import controller.util.FXMLResources;
-import controller.util.SceneTypes;
+import controller.util.SceneType;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -25,14 +25,15 @@ public abstract class MenuController {
     private void goHome(){
         System.out.println("Switching to home screen...");
         Stage currStage = (Stage) menuBar.getScene().getWindow();
-        if(FXMLResources.getCurrentScene()!= SceneTypes.CONTACTS){  //todo add condition if somebody is logged in
+        if(FXMLResources.getCurrentScene()!= SceneType.CONTACTS){  //todo add condition if somebody is logged in
             currStage.setScene(FXMLResources.getContactsScene());
         }
     }
+
     @FXML
     private void logOut(){
-        if(FXMLResources.getCurrentScene() == SceneTypes.CONTACTS || FXMLResources.getCurrentScene() == SceneTypes.CONVERSATION){
-            //todo waiting: end session
+        if(FXMLResources.getCurrentScene() == SceneType.CONTACTS || FXMLResources.getCurrentScene() == SceneType.CONVERSATION){
+            //todo waiting: end session and switch scene to log in
         }
         System.out.println("Logging out...");
         //if(Session.isInProgress()){
@@ -43,6 +44,7 @@ public abstract class MenuController {
         // do nothing()
         //}
     }
+
     @FXML
     private void quit (){
         System.out.println("Quitiing...");

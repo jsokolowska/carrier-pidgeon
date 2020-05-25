@@ -26,12 +26,13 @@ public class NewConnectionController {
         String newIP = peerIP.getText();
         String portNum = peerPort.getText();
         // todo validate data correctness and try to connect
+        // todo - check if string is IP
         // IP.parse(String)
         // portNum.parsePort
         //try{
         //
         //connect(peerName.getText(), newIP,
-        // if succes - clean & close window, add contact, else - display error msg
+        // if success - clean & close window, add contact, else - display error msg
     }
 
     @FXML
