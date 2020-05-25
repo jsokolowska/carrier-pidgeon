@@ -1,5 +1,6 @@
 package controller;
 
+import controller.util.FXMLResources;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -33,6 +34,12 @@ public class SignUpController extends MenuController{
         loginField.setText("");
         passwordField.setText("");
         //incorrectText.setText("");
+        /*todo (possibly to be abandoned)
+           - check if both password fields are the same,
+           - check for username uniqueness
+           - start user session
+           - switch to contacts scene
+         */
         /*System.out.println("Changing to sign up screen");
         Stage currStage = (Stage) signUpButton.getScene().getWindow();
         currStage.setScene(FXMLResources.loginScene);*/

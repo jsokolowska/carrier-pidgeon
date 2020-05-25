@@ -1,4 +1,4 @@
-package controller;
+package controller.util;
 
 /**
  * @author Joanna Sokołowska
