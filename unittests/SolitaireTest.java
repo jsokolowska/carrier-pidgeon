@@ -1,3 +1,5 @@
+package unittests;
+import model.Solitaire;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

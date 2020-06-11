@@ -1,3 +1,5 @@
+package model;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,6 +23,7 @@ public class Peer {
 
     public void connect(BufferedReader bufferedReader) throws IOException
     {
+        System.out.println("Connecting");
         System.out.println("Enter hostname:port you want to connect");
         System.out.println("or press p to pass");
         String input = bufferedReader.readLine();
@@ -75,7 +78,9 @@ public class Peer {
         String[] setupValues = bufferedReader.readLine().split(" ");
         ServerThread serverThread = new ServerThread(Integer.parseInt(setupValues[1]));
         serverThread.start();
+        System.out.println("Connection started");
         Peer p = new Peer(setupValues[0], Integer.parseInt(setupValues[1]));
+        System.out.println("Made new peer");
         p.connect(bufferedReader);
     }
 

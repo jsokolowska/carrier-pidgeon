@@ -1,3 +1,4 @@
+package model;
 import org.jetbrains.annotations.NotNull;
 
 public class Cezar implements Cipher{

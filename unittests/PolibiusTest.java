@@ -1,3 +1,5 @@
+package unittests;
+import model.Polibius;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

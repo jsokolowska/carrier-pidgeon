@@ -21,8 +21,9 @@ public class ServerThread extends Thread {
     }
 
     @Override
-    public void  start(){
+    public void  run(){
         try{
+            System.out.println("Started server");
             serverSocket = new ServerSocket(PORT);
             while(true){
                 Socket clientSocket = serverSocket.accept();

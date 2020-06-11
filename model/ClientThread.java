@@ -1,3 +1,4 @@
+package model;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class ClientThread extends Thread
     }
 
     @Override
-    public void start(){
+    public void run(){
         try{
             socket = new Socket(host, port);
             System.out.println("Connection succesfull!");
