@@ -1,10 +1,8 @@
-package  model;
-
+package model;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 
 public class ClientThread extends Thread
 {
@@ -32,8 +30,13 @@ public class ClientThread extends Thread
         this.port = port;
     }
 
+    public ClientThread(Socket socket)
+    {
+        this.socket = socket;
+    }
+
     @Override
-    public void start(){
+    public void run(){
         try{
             socket = new Socket(host, port);
             System.out.println("Connection succesfull!");
