@@ -1,67 +1,52 @@
-package model;
-
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
+import java.io.InputStreamReader;
 import java.net.Socket;
-import java.nio.channels.SocketChannel;
 import java.util.LinkedList;
 import java.util.List;
-
 
 public class Peer {
     private String name;
     private int port;
-    private final ServerThread server;
+    private ServerThread server;
 
-    private SocketChannel channel;
+    private final List<ClientThread> connections = new LinkedList<>();
 
-    private final List children = new LinkedList();
-    private final List connections = new LinkedList();
-
-    public Peer(Peer peer)
-    {
-        server = null;
-
-        if (peer != null)
-            children.add(peer);
-    }
-
-    public Peer(Peer peer, String nick, String host, int port, ServerThread server) throws IOException
+    public Peer(String nick, int port)
     {
         this.name = nick;
         this.port = port;
-        this.server = server;
 
-        if( peer != null )
-            children.add(peer);
-
-        ServerSocket server_socket;
-        InetSocketAddress address;
-        Socket socket;
-        try {
-            server_socket = new ServerSocket();
-            address = new InetSocketAddress(port);
-            server_socket.bind(address);
-            socket = server_socket.accept();
-            System.out.println("Zglosil sie klient");
-        }
-        catch (Exception e)
-        {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
     }
 
-    public void connect(String host, int port) throws IOException
+    public void connect(BufferedReader bufferedReader) throws IOException
     {
-        //Connection conn = new connection(Inet.Addres.geyByName(host), port, this);
-        //connections.add(conn);
-        //new Thread(conn).start();
+        System.out.println("Enter hostname:port you want to connect");
+        System.out.println("or press p to pass");
+        String input = bufferedReader.readLine();
+        String[] values = input.split(" ");
+        if(!input.equals("p"))
+        {
+            for (int i = 0; i < values.length; ++i)
+            {
+                String[] address = values[i].split(":");
+                Socket socket = null;
+                try
+                {
+                    socket = new Socket(address[0], Integer.valueOf(address[1]));
+                    new ClientThread(socket).start();
+                } catch (Exception e){
+                    if( socket != null )
+                        socket.close();
+                    else
+                        System.out.println("Invalid input");
+                }
+            }
+        }
     }
 
     public void disconnectFrom(String hname)
-    {
+    {/*
         for( Object obj : connections ){
             Peer p = (Peer) obj;
             String peerHost = p.getName();
@@ -77,12 +62,21 @@ public class Peer {
             //jeżeli jest taki chanel na serverze
             //to zamknąć go
             //to do
-        }
+        }*/
     }
 
     public String getName(){
         return name;
     }
 
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter username and port number:");
+        String[] setupValues = bufferedReader.readLine().split(" ");
+        ServerThread serverThread = new ServerThread(Integer.parseInt(setupValues[1]));
+        serverThread.start();
+        Peer p = new Peer(setupValues[0], Integer.parseInt(setupValues[1]));
+        p.connect(bufferedReader);
+    }
 
 }
