@@ -11,46 +11,30 @@ import java.io.IOException;
  */
 
 public class FXMLResources {
-    private static Scene loginScene;
-    private static Scene signupScene;
-    private static Scene contactsScene;
-    private static Scene conversationScene;
+    private static Scene welcomeScene;
+    private static Scene mainScene;
     private static Scene newConnectionScene;
     private static SceneType currentScene;
 
 
     public void loadAllResources () throws IOException{
-        Parent login = FXMLLoader.load(getClass().getResource("/resources/logIn.fxml"));
-        Parent signup = FXMLLoader.load(getClass().getResource("/resources/signUp.fxml"));
-        Parent contact = FXMLLoader.load(getClass().getResource("/resources/contacts.fxml"));
-        Parent conversation =  FXMLLoader.load(getClass().getResource("/resources/conversation.fxml"));
+        Parent welcome = FXMLLoader.load(getClass().getResource("/resources/welcome.fxml"));
+        Parent main =  FXMLLoader.load(getClass().getResource("/resources/mainView.fxml"));
         Parent newConnection = FXMLLoader.load(getClass().getResource("/resources/newConnection.fxml"));
 
-        loginScene = new Scene(login);
-        signupScene = new Scene(signup);
-        contactsScene = new Scene(contact);
-        conversationScene = new Scene(conversation);
+        welcomeScene = new Scene(welcome);
+        mainScene = new Scene(main);
         newConnectionScene = new Scene(newConnection);
     }
 
-    public static Scene getLoginScene() {
-        currentScene = SceneType.LOGIN;
-        return loginScene;
+    public static Scene getWelcomeScene() {
+        currentScene = SceneType.WELCOME;
+        return welcomeScene;
     }
 
-    public static Scene getSignupScene() {
-        currentScene = SceneType.SIGN_UP;
-        return signupScene;
-    }
-
-    public static Scene getContactsScene() {
-        currentScene = SceneType.CONTACTS;
-        return contactsScene;
-    }
-
-    public static Scene getConversationScene() {
-        currentScene = SceneType.CONVERSATION;
-        return conversationScene;
+    public static Scene getMainScene() {
+        currentScene = SceneType.MAIN;
+        return mainScene;
     }
 
     public static Scene getNewConnectionScene() {

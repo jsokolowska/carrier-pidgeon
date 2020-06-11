@@ -7,17 +7,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-
 /**
  * @author Joanna Sokołowska
  */
 
-public class ConversationController extends MenuController {
+public class mainViewController extends MenuController {
     @FXML
     private TextArea messageText;
     @FXML
@@ -28,12 +28,12 @@ public class ConversationController extends MenuController {
     private VBox messageBox; //todo manage growth
 
     public void setName(String peerName){
-        conversationLabel.setText(conversationLabel.getText() + " " + peerName);
+        conversationLabel.setText(peerName);
     }
 
     @FXML
     private void sendMsg(){
-            //todo actually send msg
+        //todo actually send msg
         String text = messageText.getText();
         text = text.trim();
         if(text.length() >0){
@@ -52,7 +52,7 @@ public class ConversationController extends MenuController {
 
     @FXML
     private void onEnter(KeyEvent e){
-        if(e.getCode()==KeyCode.ENTER ){
+        if(e.getCode()== KeyCode.ENTER ){
             if(e.isShiftDown()){
                 messageText.appendText("\n");
             }else{
@@ -62,4 +62,8 @@ public class ConversationController extends MenuController {
         }
     }
 
+    @FXML
+    private void addNewConnection(MouseEvent mouseEvent) {
+        System.out.println("You clicked to add new connection");
+    }
 }

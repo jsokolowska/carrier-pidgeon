@@ -25,14 +25,14 @@ public abstract class MenuController {
     private void goHome(){
         System.out.println("Switching to home screen...");
         Stage currStage = (Stage) menuBar.getScene().getWindow();
-        if(FXMLResources.getCurrentScene()!= SceneType.CONTACTS){  //todo add condition if somebody is logged in
-            currStage.setScene(FXMLResources.getContactsScene());
+        if(FXMLResources.getCurrentScene()!= SceneType.MAIN){  //todo add condition if somebody is logged in
+            currStage.setScene(FXMLResources.getMainScene());
         }
     }
 
     @FXML
     private void logOut(){
-        if(FXMLResources.getCurrentScene() == SceneType.CONTACTS || FXMLResources.getCurrentScene() == SceneType.CONVERSATION){
+        if(FXMLResources.getCurrentScene() == SceneType.MAIN){
             //todo waiting: end session and switch scene to log in
         }
         System.out.println("Logging out...");

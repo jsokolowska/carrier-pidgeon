@@ -38,7 +38,10 @@ public class ClientThread extends Thread
     @Override
     public void run(){
         try{
-            socket = new Socket(host, port);
+            System.out.println("Trying to connect to hostip:" + host + "on port:" + port);
+            if (socket == null){
+                socket = new Socket(host, port);
+            }
             System.out.println("Connection succesfull!");
 
             clientInput = new DataInputStream(socket.getInputStream());

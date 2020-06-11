@@ -82,6 +82,7 @@ public class Peer {
         Peer p = new Peer(setupValues[0], Integer.parseInt(setupValues[1]));
         System.out.println("Made new peer");
         p.connect(bufferedReader);
+        System.out.println("Henlo");
     }
 
 }
