@@ -1,7 +1,9 @@
 package controller;
 
+import controller.util.ResourcesManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -10,6 +12,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -17,18 +23,25 @@ import java.io.IOException;
  * @author Joanna Sokołowska
  */
 
-public class mainViewController extends MenuController {
+public class MainViewController extends MenuController {
     @FXML
     private TextArea messageText;
     @FXML
     private Button sendButton;
     @FXML
-    private Label conversationLabel;
+    private Text contactName;
     @FXML
-    private VBox messageBox; //todo manage growth
+    private Text IPAddress;
+    @FXML
+    private Text portNr;
+    @FXML
+    private VBox messageBox;
+    @FXML
+    private VBox contactsBox;
+
 
     public void setName(String peerName){
-        conversationLabel.setText(peerName);
+        contactName.setText(peerName);
     }
 
     @FXML
@@ -64,6 +77,16 @@ public class mainViewController extends MenuController {
 
     @FXML
     private void addNewConnection(MouseEvent mouseEvent) {
+        Scene newConnection = ResourcesManager.getNewConnectionScene();
+        Stage newConn = new Stage();
+        newConn.setScene(newConnection);
+        newConn.initModality(Modality.APPLICATION_MODAL);
+        newConn.show();
         System.out.println("You clicked to add new connection");
+    }
+
+    public void setInfo (String ip, String port){
+        IPAddress.setText(ip);
+        portNr.setText(port);
     }
 }

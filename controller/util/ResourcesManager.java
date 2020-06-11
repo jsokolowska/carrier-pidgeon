@@ -10,7 +10,7 @@ import java.io.IOException;
  * @author Joanna Sokołowska
  */
 
-public class FXMLResources {
+public class ResourcesManager {
     private static Scene welcomeScene;
     private static Scene mainScene;
     private static Scene newConnectionScene;
