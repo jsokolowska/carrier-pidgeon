@@ -1,3 +1,5 @@
+package model;
+
 import org.jetbrains.annotations.NotNull;
 
 public class Solitaire implements Cipher {

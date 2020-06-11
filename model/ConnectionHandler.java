@@ -27,8 +27,9 @@ public class ConnectionHandler extends Thread {
     }
 
     @Override
-    public void start() {
+    public void run() {
         try{
+            System.out.println("Handling an incoming connection");
             in = new DataInputStream(new BufferedInputStream(PEER_SOCKET.getInputStream()));
 
             Message msg = readMsgFromClient();
