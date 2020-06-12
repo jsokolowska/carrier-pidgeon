@@ -1,6 +1,6 @@
 package controller;
 
-import controller.util.ResourcesManager;
+import controller.util.FXMLResourcesManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -23,13 +23,15 @@ public class WelcomeController extends MenuController {
 
     public WelcomeController(){}
 
-
     @FXML
-    private void tryToLogIn(){
-            //todo start user and client threads, if sth goes wrong then display error message
+    private void toMain(){
+            /*todo
+            *  verify if passed port is a number
+            *  try to start server with provided port nr
+            *  display error message in case of an error*/
            clean();
            Stage currStage = (Stage) logIn.getScene().getWindow();
-           currStage.setScene(ResourcesManager.getMainScene());
+           currStage.setScene(FXMLResourcesManager.getMainScene());
     }
     private void clean(){
         usernameField.setText("");

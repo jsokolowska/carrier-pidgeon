@@ -1,6 +1,6 @@
 package controller;
 
-import controller.util.ResourcesManager;
+import controller.util.FXMLResourcesManager;
 import controller.util.SceneType;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
@@ -12,6 +12,7 @@ import javafx.stage.Stage;
  */
 
 public abstract class MenuController {
+    //todo - rethink how menu should look like
     @FXML
     private MenuItem menuHome;
     @FXML
@@ -23,31 +24,22 @@ public abstract class MenuController {
 
     @FXML
     private void goHome(){
-        System.out.println("Switching to home screen...");
         Stage currStage = (Stage) menuBar.getScene().getWindow();
-        if(ResourcesManager.getCurrentScene()!= SceneType.MAIN){  //todo add condition if somebody is logged in
-            currStage.setScene(ResourcesManager.getMainScene());
+        if(FXMLResourcesManager.getCurrentScene()!= SceneType.MAIN){
+            currStage.setScene(FXMLResourcesManager.getMainScene());
         }
     }
 
     @FXML
     private void logOut(){
-        if(ResourcesManager.getCurrentScene() == SceneType.MAIN){
-            //todo waiting: end session and switch scene to log in
+        if(FXMLResourcesManager.getCurrentScene() == SceneType.MAIN){
+            //todo waiting: end session and switch scene to welcome
         }
-        System.out.println("Logging out...");
-        //if(Session.isInProgress()){
-        //      //log out
-                //FXMLResources.currentScene = SceneTypes.LOGIN;
-        //      change screen()
-        //}else{
-        // do nothing()
-        //}
+
     }
 
     @FXML
     private void quit (){
-        System.out.println("Quitiing...");
         Stage currStage = (Stage) menuBar.getScene().getWindow();
         currStage.close();
     }

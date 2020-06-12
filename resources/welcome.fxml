@@ -61,7 +61,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Text>
-                        <Button fx:id="logIn" mnemonicParsing="false" onAction="#tryToLogIn" prefHeight="26.0" prefWidth="67.0" text="Log in">
+                        <Button fx:id="logIn" mnemonicParsing="false" onAction="#toMain" prefHeight="26.0" prefWidth="67.0" text="Log in">
                            <HBox.margin>
                               <Insets top="5.0" />
                            </HBox.margin></Button>

@@ -1,18 +1,16 @@
 package controller;
 
-import controller.util.ResourcesManager;
+import controller.util.FXMLResourcesManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -77,7 +75,7 @@ public class MainViewController extends MenuController {
 
     @FXML
     private void addNewConnection(MouseEvent mouseEvent) {
-        Scene newConnection = ResourcesManager.getNewConnectionScene();
+        Scene newConnection = FXMLResourcesManager.getNewConnectionScene();
         Stage newConn = new Stage();
         newConn.setScene(newConnection);
         newConn.initModality(Modality.APPLICATION_MODAL);

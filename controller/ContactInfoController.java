@@ -52,7 +52,7 @@ public class ContactInfoController {
     @FXML
     private void openConversation(){
         Stage currStage = (Stage) openButton.getScene().getWindow();
-        //todo load conversation sceen according to peer info
+        //todo load conversation screen according to peer info
 
     }
 

@@ -1,6 +1,6 @@
 package controller;
 
-import controller.util.ResourcesManager;
+import controller.util.FXMLResourcesManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -18,9 +18,9 @@ public class Pigeon extends Application {
     @Override
     public void start(@NotNull Stage primaryStage) throws Exception {
         try{
-            ResourcesManager resourcesManager = new ResourcesManager();
-            resourcesManager.loadAllResources();
-            primaryStage.setScene(ResourcesManager.getWelcomeScene());
+            FXMLResourcesManager FXMLResourcesManager = new FXMLResourcesManager();
+            FXMLResourcesManager.loadAllResources();
+            primaryStage.setScene(FXMLResourcesManager.getWelcomeScene());
             primaryStage.setTitle("Carrier Pigeon");
             primaryStage.setOnCloseRequest(e-> cleanUpResources()); //close event needs to be consumed if you want to not close the program after all...
             primaryStage.show();

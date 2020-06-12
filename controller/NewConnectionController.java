@@ -25,18 +25,15 @@ public class NewConnectionController {
     private void tryToConnect (){
         String newIP = peerIP.getText();
         String portNum = peerPort.getText();
-        // todo validate data correctness and try to connect
-        // todo - check if string is IP
-        // IP.parse(String)
-        // portNum.parsePort
-        //try{
-        //
-        //connect(peerName.getText(), newIP,
-        // if success - clean & close window, add contact, else - display error msg
+        /*todo
+        *  check if ip and port are correct
+        *  send "welcome" message
+        *  if not correct - display error message
+        *  on succes close window*/
     }
 
     @FXML
-    private void cancelConnection (){
+    private void close(){
         clean();
         Stage currStage = (Stage) cancelButton.getScene().getWindow();
         currStage.close();

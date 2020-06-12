@@ -22,14 +22,14 @@ public class MessageController {
     public void makeMyMsg(String message){
         myMsgText.setText(message);
         LocalTime time = LocalTime.now();
-        String timestamp = time.getHour() + ":" + time.getMinute();
+        String timestamp = String.format("%02d", time.getHour())+ ":" + String.format("%02d", time.getMinute());
         myTimestamp.setText(timestamp);
     }
 
     public void makeSbMsg(String message){
         sbMsgText.setText(message);
         LocalTime time = LocalTime.now();
-        String timestamp = time.getHour() + ":" + time.getMinute();
+        String timestamp = String.format("%02d", time.getHour())+ ":" + String.format("%02d", time.getMinute());
         sbTimestamp.setText(timestamp);
     }
 }

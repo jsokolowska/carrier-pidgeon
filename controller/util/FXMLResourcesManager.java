@@ -3,14 +3,17 @@ package controller.util;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import model.Message;
 
 import java.io.IOException;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author Joanna Sokołowska
  */
 
-public class ResourcesManager {
+public class FXMLResourcesManager {
     private static Scene welcomeScene;
     private static Scene mainScene;
     private static Scene newConnectionScene;
