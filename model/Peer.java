@@ -10,42 +10,47 @@ import java.util.List;
 public class Peer {
     private String name;
     private int port;
+    private String ipAddress;
     private ServerThread server;
 
     private final List<ClientThread> connections = new LinkedList<>();
 
-    public Peer(String nick, int port)
+    public Peer(String nick, int port, String ipAddress)
     {
         this.name = nick;
         this.port = port;
+        this.ipAddress=ipAddress;
 
     }
 
-    public void connect(BufferedReader bufferedReader) throws IOException
+    public void connect(String hostAddres, int hostPort) throws IOException
     {
-        System.out.println("Connecting");
-        System.out.println("Enter hostname:port you want to connect");
-        System.out.println("or press p to pass");
-        String input = bufferedReader.readLine();
-        String[] values = input.split(" ");
-        if(!input.equals("p"))
-        {
-            for (int i = 0; i < values.length; ++i)
-            {
-                String[] address = values[i].split(":");
-                Socket socket = null;
-                try
-                {
-                    socket = new Socket(address[0], Integer.valueOf(address[1]));
-                    new ClientThread(socket).start();
-                } catch (Exception e){
-                    if( socket != null )
-                        socket.close();
-                    else
-                        System.out.println("Invalid input");
-                }
-            }
-        }
+        Socket socket = new Socket(hostAddres, hostPort);
+        new ClientThread(socket).start();
+
+//        System.out.println("Connecting");
+//        System.out.println("Enter hostname:port you want to connect");
+//        System.out.println("or press p to pass");
+//        String input = bufferedReader.readLine();
+//        String[] values = input.split(" ");
+//        if(!input.equals("p"))
+//        {
+//            for (int i = 0; i < values.length; ++i)
+//            {
+//                String[] address = values[i].split(":");
+//                Socket socket = null;
+//                try
+//                {
+//                    socket = new Socket(address[0], Integer.valueOf(address[1]));
+//                    new ClientThread(socket).start();
+//                } catch (Exception e){
+//                    if( socket != null )
+//                        socket.close();
+//                    else
+//                        System.out.println("Invalid input");
+//                }
+//            }
+//        }
     }
 
     public void disconnectFrom(String hname)
@@ -70,6 +75,12 @@ public class Peer {
 
     public String getName(){
         return name;
+    }
+    public String getIpAddress(){
+        return ipAddress;
+    }
+    public int getPort(){
+        return port;
     }
 
 //    public static void main(String[] args) throws IOException {

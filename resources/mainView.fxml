@@ -48,6 +48,14 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="56.0" prefWidth="400.0" style="-fx-background-color: white; -fx-border-color: lightgray;">
                      <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add new connection">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
                         <ImageView fitHeight="38.0" fitWidth="75.0" onMouseClicked="#addNewConnection" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@plus.png" />

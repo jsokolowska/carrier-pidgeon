@@ -1,5 +1,6 @@
 package controller;
 
+import controller.util.ContactsManager;
 import controller.util.FXMLResourcesManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,17 +39,20 @@ public class MainViewController extends MenuController {
     @FXML
     private VBox contactsBox;
 
+    private int contactsVersion;
+    private int messageVersion;
+
+    @FXML
+    private void initialize(){
+        contactsVersion = ContactsManager.getVersion();
+        ContactsManager.setContacts(contactsBox.getChildren());
+    }
+
 
     public void setName(String peerName){
         contactName.setText(peerName);
     }
 
-
-    public void displayInfo(){
-        portNr.setText(Integer.toString(SharedResources.portNum));
-        IPAddress.setText(SharedResources.ipAddress);
-        contactName.setText("");
-    }
     @FXML
     private void sendMsg(){
         //todo actually send msg
@@ -93,5 +97,13 @@ public class MainViewController extends MenuController {
     public void setInfo (String ip, String port){
         IPAddress.setText(ip);
         portNr.setText(port);
+        contactName.setText("");
+    }
+
+    public void update(){
+        if(contactsVersion < ContactsManager.getVersion()){
+            //check for new connections and messages
+        }
+
     }
 }

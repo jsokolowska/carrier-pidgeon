@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Peer;
 import model.ServerThread;
 import model.util.SharedResources;
 
@@ -30,6 +31,11 @@ public class WelcomeController extends MenuController {
     @FXML
     private Text incorrectText;
 
+    private static int contactCounter;
+    static {
+        contactCounter=0;
+    }
+
     public WelcomeController(){}
 
     @FXML
@@ -44,17 +50,19 @@ public class WelcomeController extends MenuController {
             try{
                 ServerThread serverThread = new ServerThread(port);
                 serverThread.start();
-                //SharedResources.portNum=port;
                 InetAddress add = Inet4Address.getLocalHost();
-                //SharedResources.ipAddress=add.toString();
-                clean();
+                SharedResources.peer = new Peer(user, port, add.toString());
+
                 Stage currStage = (Stage) toMainButton.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/mainView.fxml"));
                 Parent mainView = loader.load();
+
                 MainViewController controller = loader.getController();
                 controller.setInfo(add.toString(), Integer.toString(port));
+
                 Scene mainScene = new Scene(mainView);
                 currStage.setScene(mainScene);
+                clean();
             }catch (IOException ex){
                 incorrectText.setText("Could not start server");
             }
