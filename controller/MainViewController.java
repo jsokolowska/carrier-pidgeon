@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.util.SharedResources;
 
 import java.io.IOException;
 
@@ -42,6 +43,12 @@ public class MainViewController extends MenuController {
         contactName.setText(peerName);
     }
 
+
+    public void displayInfo(){
+        portNr.setText(Integer.toString(SharedResources.portNum));
+        IPAddress.setText(SharedResources.ipAddress);
+        contactName.setText("");
+    }
     @FXML
     private void sendMsg(){
         //todo actually send msg
