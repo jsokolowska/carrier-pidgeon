@@ -33,6 +33,7 @@ public class ContactInfoController {
         }else{
             unreadMsg.setVisible(false);
             this.lastMsg.setText("");
+            this.lastTimestamp.setText("");
         }
 
     }

@@ -13,41 +13,32 @@ import java.util.logging.Logger;
 
 public class ServerThread extends Thread {
     private ServerSocket serverSocket;
-    private static FileHandler fhandl;
-    private static final Logger LOGGER;
+    //private static FileHandler fhandl;
+    //private static final Logger LOGGER;
     private final int PORT;
-    static{
-        LOGGER = Logger.getLogger(ServerThread.class.getName());
-    }
+//    static{
+//        LOGGER = Logger.getLogger(ServerThread.class.getName());
+//    }
 
     @Override
     public void  run(){
-        try{
-            System.out.println("Started server");
-            serverSocket = new ServerSocket(PORT);
-            while(true){
-                Socket clientSocket = serverSocket.accept();
-                new ConnectionHandler(clientSocket).start();
-                //todo - finish connection without an exception
+        while(true){
+            Socket clientSocket = null;
+            try {
+                clientSocket = serverSocket.accept();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
-
-        }catch (IOException e){
-            if(fhandl==null){
-                try {
-                    fhandl = new FileHandler(ServerThread.class.getName());
-                } catch (IOException exception) {
-                    e.printStackTrace();
-                }
-            }
-
-            LOGGER.setLevel(Level.SEVERE);
-            LOGGER.info("Log directed to file");
-            LOGGER.info("Could not create server Socket:" + this);
-            System.out.println("Could not create Server Thread -quiting?");
+            new ConnectionHandler(clientSocket).start();
+            //todo - finish connection without an exception
         }
     }
-    public ServerThread(int PORT){
+    public ServerThread(int PORT) throws  IOException{
         this.PORT = PORT;
+        System.out.println("Starting server");
+        serverSocket = new ServerSocket(PORT);
+        System.out.println("Succesfull");
+
     }
 
     public String toString(){

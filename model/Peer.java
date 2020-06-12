@@ -72,17 +72,17 @@ public class Peer {
         return name;
     }
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter username and port number:");
-        String[] setupValues = bufferedReader.readLine().split(" ");
-        ServerThread serverThread = new ServerThread(Integer.parseInt(setupValues[1]));
-        serverThread.start();
-        System.out.println("Connection started");
-        Peer p = new Peer(setupValues[0], Integer.parseInt(setupValues[1]));
-        System.out.println("Made new peer");
-        p.connect(bufferedReader);
-        System.out.println("Henlo");
-    }
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        System.out.println("Enter username and port number:");
+//        String[] setupValues = bufferedReader.readLine().split(" ");
+//        ServerThread serverThread = new ServerThread(Integer.parseInt(setupValues[1]));
+//        serverThread.start();
+//        System.out.println("Connection started");
+//        Peer p = new Peer(setupValues[0], Integer.parseInt(setupValues[1]));
+//        System.out.println("Made new peer");
+//        p.connect(bufferedReader);
+//        System.out.println("Henlo");
+//    }
 
 }

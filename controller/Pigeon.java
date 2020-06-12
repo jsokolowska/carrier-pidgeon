@@ -20,9 +20,10 @@ public class Pigeon extends Application {
         try{
             FXMLResourcesManager FXMLResourcesManager = new FXMLResourcesManager();
             FXMLResourcesManager.loadAllResources();
-            primaryStage.setScene(FXMLResourcesManager.getWelcomeScene());
+            primaryStage.setScene(controller.util.FXMLResourcesManager.getWelcomeScene());
             primaryStage.setTitle("Carrier Pigeon");
-            primaryStage.setOnCloseRequest(e-> cleanUpResources()); //close event needs to be consumed if you want to not close the program after all...
+            primaryStage.setOnCloseRequest(e-> cleanUpResources());
+            //close event needs to be consumed if you want to not close the program after all...
             primaryStage.show();
         }catch (IOException exception){
             System.out.println("FATAL ERROR: Could not load visual resources");
