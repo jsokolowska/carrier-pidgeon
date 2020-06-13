@@ -1,15 +1,9 @@
-package model;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-/**
- * @author Joanna Sokołowska
- */
 
 public class ServerThread extends Thread {
     private ServerSocket serverSocket;
@@ -22,11 +16,13 @@ public class ServerThread extends Thread {
 
     @Override
     public void  run(){
+        System.out.println("Server dziala");
         try{
-            System.out.println("Started server");
             serverSocket = new ServerSocket(PORT);
+            System.out.println("Port: " + PORT);
             while(true){
                 Socket clientSocket = serverSocket.accept();
+                System.out.println("Odpalam Connection Handler");
                 new ConnectionHandler(clientSocket).start();
                 //todo - finish connection without an exception
             }
