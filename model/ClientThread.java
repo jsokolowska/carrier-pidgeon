@@ -36,20 +36,11 @@ public class ClientThread extends Thread
     @Override
     public void run(){
         try{
-            if(socket == null ) {
-                socket = new Socket(userName, port);
-            }
-            System.out.println("Connection succesfull!");
-
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             while(true)
             {
                 connect(bufferedReader);
             }
-        } catch( UnknownHostException e)
-        {
-            System.out.println("Unknown Host Excetpion!");
-            e.printStackTrace();
         }
         catch (IOException e) {
             System.out.println("IO Exception!");
@@ -69,62 +60,66 @@ public class ClientThread extends Thread
         if (input != null) {
             String[] address = input.split(":");
             int var = address.length;
+            boolean success = false;
             if(var > 1)
             {
                 Socket socket = null;
                 try{
                     socket = new Socket(address[0], Integer.valueOf(address[1]));
+                    success = true;
                 } catch (Exception e) {
-                    if( socket != null )
+                    if( socket != null ) {
                         socket.close();
-                    else
+                    }else {
                         System.out.println("Invalid input");
-                }
-            }
-            out = new DataOutputStream(System.out);
-
-            if(var > 2){
-                switch(address[2])
-                {
-                    case "C":
-                        int key = 0;
-                        if(var == 4)
-                            key = Integer.valueOf(address[3]);
-                        cipher = new Cezar(key);
-                        break;
-                    case "S":
-                        cipher = new Solitaire();
-                        break;
-                    case "P":
-                        String key1 = " ";
-                        if(var == 4)
-                            key1 = address[3];
-                        cipher = new Polibius(key1);
-                        break;
-                    case "N":
-                        cipher = null;
-                        break;
-                    default:
-                        System.out.println("Unknown input, Cipher is null");
-                        cipher = null;
+                    }
+                    success = false;
                 }
             }
 
-            Message msg = createMess(bufferedReader);
-            if(cipher != null){
-                String encrypt = cipher.encrypt(msg.getMess());
-                msg.setMess(encrypt);
+            if(success) {
+                out = new DataOutputStream(System.out);
+                if (var > 2) {
+                    switch (address[2]) {
+                        case "C":
+                            int key = 0;
+                            if (var == 4)
+                                key = Integer.valueOf(address[3]);
+                            cipher = new Cezar(key);
+                            break;
+                        case "S":
+                            cipher = new Solitaire();
+                            break;
+                        case "P":
+                            String key1 = " ";
+                            if (var == 4)
+                                key1 = address[3];
+                            cipher = new Polibius(key1);
+                            break;
+                        case "N":
+                            cipher = null;
+                            break;
+                        default:
+                            System.out.println("Unknown input, Cipher is null");
+                            cipher = null;
+                    }
+                }
+
+                Message msg = createMess(bufferedReader);
+                if (cipher != null) {
+                    String encrypt = cipher.encrypt(msg.getMess());
+                    msg.setMess(encrypt);
+                }
+
+                try {
+                    out.writeUTF(msg.getUserNick());
+                    out.writeUTF(msg.getMess());
+                } catch (IOException e) {
+                    System.out.println("IOException while sending");
+                }
+
+                out.close();
             }
-
-            try{
-                out.writeUTF(msg.getUserNick());
-                out.writeUTF(msg.getMess());
-            } catch (IOException e){
-                System.out.println("IOException while sending");
-            }
-
-            out.close();
-
         } else {
             System.out.println("Invalid input");
         }
