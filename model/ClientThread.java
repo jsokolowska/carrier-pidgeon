@@ -46,6 +46,10 @@ public class ClientThread extends Thread
             {
                 connect(bufferedReader);
             }
+        } catch( UnknownHostException e)
+        {
+            System.out.println("Unknown Host Excetpion!");
+            e.printStackTrace();
         }
         catch (IOException e) {
             System.out.println("IO Exception!");
