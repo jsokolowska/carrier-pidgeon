@@ -45,10 +45,9 @@ public class NewConnectionController {
         String name = peerName.getText();
         try{
             int portNum = Integer.parseInt(peerPort.getText());
-            String hostName = ClientThread.checkConnection(hostIP, portNum);
-            if(hostName != null){
-                System.out.println("Sucessfully connected to " + hostName);
-                if(ThreadSafeResources.exists(hostName)){
+            boolean success = ClientThread.checkConnection(hostIP, portNum);
+            if(success){
+                if(ThreadSafeResources.exists(name)){
                     errorMsg.setText("Contact already created");
                 }else{
                     try {

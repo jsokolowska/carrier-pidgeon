@@ -1,6 +1,7 @@
 package controller.util;
 
 import controller.ContactInfoController;
+import controller.MessageController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Cipher;
+import model.ClientThread;
 import model.Message;
 import org.jetbrains.annotations.NotNull;
 
@@ -57,7 +60,7 @@ public class ThreadSafeResources {
         ContactInfoController controller = manager.getController();
         Node contactInfo = manager.getContactInfo();
         controller.makeContact(contactName);
-        Contact contact = new Contact(controller, manager.getMbox(), ipAddress, port);
+        Contact contact = new Contact(controller, outerMsgBox, ipAddress, port);
         // addContact(contact, contactInfo);
     }
     public static void addContactLater(String contactName, String ipAddress, int port){
@@ -65,7 +68,7 @@ public class ThreadSafeResources {
         ContactInfoController controller = manager.getController();
         Node contactInfo = manager.getContactInfo();
         controller.makeContact(contactName);
-        Contact contact = new Contact(controller, manager.getMbox(), ipAddress, port);
+        Contact contact = new Contact(controller,outerMsgBox, ipAddress, port);
          addContactLater(contact, contactInfo);
     }
     public static void addContactLater(@NotNull Contact contact, Node contactNode){
@@ -88,8 +91,27 @@ public class ThreadSafeResources {
     }
 
     public synchronized static void addMessage(Message msg, boolean mine){
-        Contact contact = contacts.get(msg.getUserNick());
-        contact.addMessage(msg, mine);
+        System.out.println("Looking for contact with name " + msg.getUserNick());
+        String name = msg.getUserNick();
+        String currname = displayedContactName.getText();
+        if(name.equals(currname)){
+            FXMLResourcesManager manager = new FXMLResourcesManager();
+            MessageController controller = manager.getMessageController();
+            controller.makeMsg(msg.getMess());
+            Node message = manager.getMessage();
+            outerMsgBox.getChildren().add(message);
+            System.out.println("Message added");
+        }else{
+            Contact contact = contacts.get(msg.getUserNick());
+            if(contact==null){
+                System.out.println("Couldnt find contact by name [" + msg.getUserNick()+"]");
+            }else{
+                contact.addMessage(msg, mine);
+                System.out.println("Message added");
+            }
+        }
+
+
     }
     public static synchronized void setRoots(VBox contactsRoot, VBox outerMsgBox, Text contactName){
         ThreadSafeResources.contactsRoot = contactsRoot;
@@ -126,4 +148,13 @@ public class ThreadSafeResources {
     private static synchronized void setContactName(String name){
         displayedContactName.setText(name);
     }
+
+   public static void sendMessage(String text, Cipher cipher){
+       String name = displayedContactName.getText();
+        Contact contact = contacts.get(name);
+        String ipAddress = contact.getIpAddress();
+        int port = contact.getPort();
+       new ClientThread(ipAddress, port, text, cipher).start();
+
+   }
 }

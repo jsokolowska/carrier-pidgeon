@@ -38,6 +38,10 @@ public class Message {
         this.mess = mess;
     }
 
+    public void setUserNick(String nick){
+        userNick = nick;
+    }
+
     public void printMess()
     {
         System.out.println("[" + getUserNick() + "]");

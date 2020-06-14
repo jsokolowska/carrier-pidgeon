@@ -1,6 +1,7 @@
 package controller.util;
 
 import controller.ContactInfoController;
+import controller.MessageController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -20,7 +21,9 @@ public class FXMLResourcesManager {
     private static SceneType currentScene;
     private ContactInfoController controller;
     private Node contactInfo;
-    private VBox mbox;
+    private Parent message;
+    private MessageController messageController;
+
 
     private static synchronized void setCurrentScene (SceneType type){
         currentScene = type;
@@ -33,7 +36,14 @@ public class FXMLResourcesManager {
         try{
             contactInfo = loader.load();
             controller = loader.getController();
-            mbox = FXMLLoader.load(getClass().getResource("/resources/innerMsgBox.fxml"));
+        }catch (IOException ex){
+            System.out.println("Could not load visuals");
+            ex.printStackTrace();
+        }
+        loader = new FXMLLoader(getClass().getResource("/resources/sbMessage.fxml"));
+        try{
+            message = loader.load();
+            messageController = loader.getController();
         }catch (IOException ex){
             System.out.println("Could not load visuals");
             ex.printStackTrace();
@@ -46,8 +56,6 @@ public class FXMLResourcesManager {
     public Node getContactInfo(){
         return contactInfo;
     }
-
-    public VBox getMbox() {
-        return mbox;
-    }
+    public Node getMessage(){return message;}
+    public MessageController getMessageController(){return messageController;}
 }

@@ -1,16 +1,8 @@
 package model.util;
 
-import controller.ContactInfoController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import model.Peer;
-
-import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
-import java.util.Collection;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+
 
 /**
  * @author Joanna Sokołowska

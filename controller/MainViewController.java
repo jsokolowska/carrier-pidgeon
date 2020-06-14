@@ -15,6 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Cipher;
+import model.ClientThread;
+import model.util.CipherBuilder;
 import model.util.PeerInfo;
 
 import java.io.IOException;
@@ -59,6 +62,8 @@ public class MainViewController extends MenuController {
                     msgCont.makeMsg(text);
                     outerMessageBox.getChildren().add(msg);
                     messageText.setText("");
+                    ThreadSafeResources.sendMessage(text, null);
+
                 }catch(IOException ex){
                     System.out.println("Could not load message");
                 }
@@ -67,6 +72,50 @@ public class MainViewController extends MenuController {
             messageText.setText("");
         }
 
+    }
+
+    @FXML
+    private void cipherAndSend(){
+        if(!contactName.getText().equals("")){
+            String text = messageText.getText();
+            text = text.trim();
+            CipherBuilder cipherBuilder = new CipherBuilder();
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/resources/cipher.fxml"));
+            try{
+                Parent root = loader1.load();
+                CipherController ciphController = loader1.getController();
+                ciphController.setCipherBuilder(cipherBuilder);
+                Scene newScene = new Scene(root);
+                Stage newStage = new Stage();
+                newStage.initModality(Modality.APPLICATION_MODAL);
+                newStage.setScene(newScene);
+                newStage.showAndWait();
+
+            }catch (IOException ex){
+                System.out.println("Could not load visual resources");
+            }
+
+            if(text.length() >0 && cipherBuilder.getCipher()!=null){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/myMessage.fxml"));
+                try{
+                    HBox msg = loader.load();
+                    MessageController msgCont = loader.getController();
+                    msgCont.makeMsg(text);
+                    outerMessageBox.getChildren().add(msg);
+                    messageText.setText("");
+
+                    Cipher cipher = cipherBuilder.getCipher();
+                    if (cipher!=null){
+                        text = cipher.encrypt(text);
+                    }
+                    ThreadSafeResources.sendMessage(text, cipher);
+                }catch(IOException ex){
+                    System.out.println("Could not load message");
+                }
+            }
+        }else {
+            messageText.setText("");
+        }
     }
 
     @FXML
@@ -101,5 +150,6 @@ public class MainViewController extends MenuController {
         portNr.setText(Integer.toString(peerInfo.getPortNum()));
         contactName.setText("");
     }
+
 
 }

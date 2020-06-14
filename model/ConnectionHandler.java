@@ -1,11 +1,17 @@
 package model;
 
+import controller.DecryptController;
 import controller.util.ThreadSafeResources;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import model.util.CipherBuilder;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,24 +20,20 @@ public class ConnectionHandler extends Thread {
     private Cipher cipher;
     private DataInputStream in;
     private static final Logger LOGGER;
-    private static FileHandler fhandl;
     private static final String helloSufix = ":ovrhenlo";
 
     static{
         LOGGER = Logger.getLogger(ConnectionHandler.class.getName());
-        fhandl = null;
     }
 
     public ConnectionHandler(Socket PEER_SOCKET){
         this.PEER_SOCKET = PEER_SOCKET;
-        createFileHandler(); //it may be moved somewhere else for better error handling and cleaner code
     }
 
     @Override
     public void run() {
         try{
             in = new DataInputStream(new BufferedInputStream(PEER_SOCKET.getInputStream()));
-
             Message msg = readMsgFromClient();
             handleMessage(msg);
             in.close();
@@ -50,24 +52,15 @@ public class ConnectionHandler extends Thread {
         }
     }
 
-    private static void createFileHandler(){
-        if(fhandl==null){
-            try{
-                fhandl = new FileHandler(ConnectionHandler.class.getName());
-                LOGGER.setLevel(Level.ALL);
-            }catch (IOException ioException){
-                ioException.printStackTrace();
-            }
-        }
-    }
-
     private Message readMsgFromClient(){
         String mess = "";
         String userNick = "";
         try{
             System.out.println("Reading Msg");
             userNick = in.readUTF();
+            System.out.println("Nick: " + userNick);
             mess = in.readUTF();
+            System.out.println("Mess " + mess);
         }catch (IOException ioException){
             ioException.printStackTrace();
             LOGGER.info("IOEXception while reading from peer socket");
@@ -87,18 +80,25 @@ public class ConnectionHandler extends Thread {
 
             ThreadSafeResources.addContactLater(msg.getUserNick().split(":")[0], ipAddress, port);
 
-
         }else{
-            System.out.println("Recieved message from : " + msg.getUserNick()+"fin");
-            System.out.println("a:" + msg.getMess());
-            System.out.println("Choose a way to decode a message. You can only do it once!");
-            chooseCipher();
+            System.out.println("Before split: " + msg.getUserNick());
+            String[] line = msg.getUserNick().split(":");
+            String name = line[0];
+            System.out.println("After split: " + name);
+            if(line.length>1){
+                if(line[1].equals("true")){
+                    chooseCipher(name);
+                }
+            }
+            msg.setUserNick(name);
             if(cipher != null)
             {
                 String decrypt = cipher.decrypt(msg.getMess());
                 msg.setMess(decrypt);
             }
-            msg.printMess();
+            Platform.runLater(()->{
+                ThreadSafeResources.addMessage(msg, false);
+            });
         }
 
     }
@@ -106,43 +106,25 @@ public class ConnectionHandler extends Thread {
         return msg.getUserNick().endsWith(helloSufix);
     }
 
-    private void sendHelloMsgBack(Message msg){
+    private void chooseCipher(String username) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/decrypt.fxml"));
         try{
-            DataOutputStream outputStream = new DataOutputStream(PEER_SOCKET.getOutputStream());
-            String line = ThreadSafeResources.getUsername() + helloSufix +"\n";
-            outputStream.writeUTF(line);
-            outputStream.writeUTF(Integer.toString(ThreadSafeResources.getPort()));
-            outputStream.close();
-        } catch (IOException exception) {
-            exception.printStackTrace();
+            Parent root = loader.load();
+            DecryptController controller = loader.getController();
+            CipherBuilder cipherBuilder = new CipherBuilder();
+            controller.setCipherBuilder(cipherBuilder);
+            controller.setName(username);
+            Scene scene = new Scene(root);
+            Platform.runLater(()->{
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+            });
+            cipher = cipherBuilder.getCipher();
+        }catch (IOException ex){
+            System.out.println("Could not load resources");
         }
 
-    }
-
-    private void chooseCipher() throws IOException {
-        System.out.println("Enter cipher:key");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String input = bufferedReader.readLine();
-        if(input != null){
-            String[] address = input.split(":");
-            switch(address[0])
-            {
-                case "C":
-                    cipher = new Cezar(Integer.valueOf(address[1]));
-                case "S":
-                    cipher = new Solitaire();
-                case "P":
-                    cipher = new Polibius(address[1]);
-                case "N":
-                    cipher = null;
-                default:
-                    System.out.println("Unknown input, Cipher is null");
-                    cipher = null;
-            }
-        } else {
-            System.out.println("Not given cipher - setting NULL");
-            cipher = null;
-        }
-        bufferedReader.close();
     }
 }

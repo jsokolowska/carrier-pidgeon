@@ -1,16 +1,11 @@
 package controller;
 
-import controller.util.FXMLResourcesManager;
-import controller.util.ThreadSafeResources;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Peer;
 import model.util.PeerInfo;
-import model.util.SharedResources;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;

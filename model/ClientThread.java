@@ -1,28 +1,31 @@
 package model;
 
 import controller.util.ThreadSafeResources;
+import javafx.scene.shape.Circle;
 
 import java.io.*;
 import java.net.*;
 
 public class ClientThread extends Thread
 {
-    private String userName;
+    private String hostName;
     private static int port;
     private Socket socket;
     private DataOutputStream out;
+    private String message;
+    private Cipher cipher;
 
     public int getPort() {
         return port;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getHostName() {
+        return hostName;
     }
 
-    public ClientThread( String userName, Socket socket, int port)
+    public ClientThread(String hostName, Socket socket, int port)
     {
-        this.userName = userName;
+        this.hostName = hostName;
         this.socket = socket;
         this.port = port;
     }
@@ -32,19 +35,59 @@ public class ClientThread extends Thread
         this.socket = socket;
     }
 
-    public ClientThread(String userName)
+    public ClientThread(String hostName)
     {
-        this.userName = userName;
+        this.hostName = hostName;
+    }
+
+    public ClientThread(String hostName, int port, String message, Cipher cipher) {
+        this.hostName = hostName;
+        this.message = message;
+        this.cipher = cipher;
+        this.port = port;
+        this.socket=null;
+    }
+    public ClientThread(Socket socket,int port, String message, Cipher cipher) {
+        this.socket = socket;
+        this.message = message;
+        this.cipher = cipher;
+        this.port = port;
+    }
+    public ClientThread(Socket socket, int port,String message) {
+        this.socket = socket;
+        this.message = message;
+        this.cipher = null;
+        this.port = port;
+    }
+    public ClientThread(String hostName,int port, String message) {
+        this.hostName = hostName;
+        this.message = message;
+        this.cipher = null;
+        this.port = port;
     }
 
     @Override
     public void run(){
         try{
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            while(true)
-            {
-                connect(bufferedReader);
+            System.out.println("Connecting to socket, ip:"+hostName+" port:"+port);
+            socket = new Socket(hostName, port);
+
+            String username = ThreadSafeResources.getUsername();
+            Message msg = new Message(message, username);
+            if (cipher!= null){
+                msg.setMess( cipher.encrypt(msg.getMess()));
             }
+            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+            String line = "";
+            if(cipher!=null){
+                line = msg.getUserNick() +":true";
+            }else{
+                line = msg.getUserNick();
+            }
+            outputStream.writeUTF(line);
+            outputStream.writeUTF(msg.getMess());
+            outputStream.close();
+            socket.close();
         }
         catch (IOException e) {
             System.out.println("IO Exception!");
@@ -52,8 +95,8 @@ public class ClientThread extends Thread
         }
     }
 
-    public static String checkConnection(String ipAddress, int port){
-        String hostname = null;
+    public static boolean checkConnection(String ipAddress, int port){ //todo change to boolean
+        boolean res = false;
         try{
             Socket socket = new Socket(ipAddress, port);
             DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -65,19 +108,17 @@ public class ClientThread extends Thread
             output.writeUTF(helloMsg);
             output.writeUTF(Integer.toString(ThreadSafeResources.getPort()));
             System.out.println("Sending hello message");
-            hostname="somename";
+            res = true;
             input.close();
             output.close();
             socket.close();
 
         } catch (IOException ignored) {}
-        return hostname;
+        return res;
     }
-
     public void connect(BufferedReader bufferedReader) throws IOException
     {
         String hostname = "localhost";
-        System.out.println("Give port nr of sb u want to send msg to");
         String port = bufferedReader.readLine();
         int portNr;
         try{
@@ -92,9 +133,9 @@ public class ClientThread extends Thread
             System.out.println("Type your message");
             String line = bufferedReader.readLine();
             if (line != null){
-                Message msg = new Message(line, userName);
+                Message msg = new Message(line, hostName);
                 DataOutputStream socketOut = new DataOutputStream(socket.getOutputStream());
-                socketOut.writeUTF(userName + ":");
+                socketOut.writeUTF(hostName + ":");
                 socketOut.writeUTF(line);
             }
         }catch (IOException ex){
@@ -189,9 +230,9 @@ public class ClientThread extends Thread
 //        }
     }
 
-    public Message createMess(BufferedReader bufferedReader) throws IOException {
-        System.out.println("Type your message");
-        String input = bufferedReader.readLine();
-        return new Message(input, getUserName());
-    }
+//    public Message createMess(BufferedReader bufferedReader) throws IOException {
+//        System.out.println("Type your message");
+//        String input = bufferedReader.readLine();
+//        return new Message(input, getUserName());
+//    }
 }

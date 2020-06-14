@@ -2,9 +2,7 @@ package controller.util;
 
 import controller.ContactInfoController;
 import controller.MessageController;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,8 +10,7 @@ import javafx.scene.layout.VBox;
 import model.Message;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
+
 
 /**
  * @author Joanna Sokołowska
@@ -39,10 +36,6 @@ public class Contact {
         messages = null;
     }
     public ObservableList<Node> getMessages(){
-        int how = 0;
-        if(messages != null){
-            how = messages.size();
-        }
         return messages;
     }
     public void saveMessages(VBox outerMessageBox){
@@ -63,7 +56,8 @@ public class Contact {
             Node message = loader.load();
             MessageController controller = loader.getController();
             controller.makeMsg(msg);
-            outerMessageBox.getChildren().add(message);
+            messages.add(message);
+            this.controller.showNewMessage(msg);
 
         } catch (IOException exception) {
             exception.printStackTrace();

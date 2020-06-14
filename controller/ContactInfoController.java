@@ -58,6 +58,7 @@ public class ContactInfoController {
     }
     @FXML
     private void openConversation(){
+        unreadMsg.setVisible(false);
         ThreadSafeResources.openConversation(contactName.getText());
     }
 
