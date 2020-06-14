@@ -90,14 +90,18 @@ public class ThreadSafeResources {
         return contactNames.contains(contactName);
     }
 
-    public synchronized static void addMessage(Message msg, boolean mine){
+    public synchronized static void addMessage(Message msg, boolean mine, boolean ciphered){
         System.out.println("Looking for contact with name " + msg.getUserNick());
         String name = msg.getUserNick();
         String currname = displayedContactName.getText();
         if(name.equals(currname)){
             FXMLResourcesManager manager = new FXMLResourcesManager();
             MessageController controller = manager.getMessageController();
-            controller.makeMsg(msg.getMess());
+            if (ciphered){
+                controller.makeCipheredMsg(msg.getMess());
+            }else{
+                controller.makeCipheredMsg(msg.getMess());
+            }
             Node message = manager.getMessage();
             outerMsgBox.getChildren().add(message);
             System.out.println("Message added");
@@ -106,7 +110,7 @@ public class ThreadSafeResources {
             if(contact==null){
                 System.out.println("Couldnt find contact by name [" + msg.getUserNick()+"]");
             }else{
-                contact.addMessage(msg, mine);
+                contact.addMessage(msg, mine, ciphered);
                 System.out.println("Message added");
             }
         }
@@ -151,9 +155,9 @@ public class ThreadSafeResources {
 
    public static void sendMessage(String text, Cipher cipher){
        String name = displayedContactName.getText();
-        Contact contact = contacts.get(name);
-        String ipAddress = contact.getIpAddress();
-        int port = contact.getPort();
+       Contact contact = contacts.get(name);
+       String ipAddress = contact.getIpAddress();
+       int port = contact.getPort();
        new ClientThread(ipAddress, port, text, cipher).start();
 
    }

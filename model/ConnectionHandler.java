@@ -85,19 +85,16 @@ public class ConnectionHandler extends Thread {
             String[] line = msg.getUserNick().split(":");
             String name = line[0];
             System.out.println("After split: " + name);
+            boolean ciphered = false;
             if(line.length>1){
                 if(line[1].equals("true")){
-                    chooseCipher(name);
+                    ciphered = true;
                 }
             }
             msg.setUserNick(name);
-            if(cipher != null)
-            {
-                String decrypt = cipher.decrypt(msg.getMess());
-                msg.setMess(decrypt);
-            }
+            boolean finalCiphered = ciphered;
             Platform.runLater(()->{
-                ThreadSafeResources.addMessage(msg, false);
+                ThreadSafeResources.addMessage(msg, false, finalCiphered);
             });
         }
 
@@ -106,25 +103,4 @@ public class ConnectionHandler extends Thread {
         return msg.getUserNick().endsWith(helloSufix);
     }
 
-    private void chooseCipher(String username) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/decrypt.fxml"));
-        try{
-            Parent root = loader.load();
-            DecryptController controller = loader.getController();
-            CipherBuilder cipherBuilder = new CipherBuilder();
-            controller.setCipherBuilder(cipherBuilder);
-            controller.setName(username);
-            Scene scene = new Scene(root);
-            Platform.runLater(()->{
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setScene(scene);
-                stage.showAndWait();
-            });
-            cipher = cipherBuilder.getCipher();
-        }catch (IOException ex){
-            System.out.println("Could not load resources");
-        }
-
-    }
 }

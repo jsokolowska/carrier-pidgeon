@@ -105,9 +105,6 @@ public class MainViewController extends MenuController {
                     messageText.setText("");
 
                     Cipher cipher = cipherBuilder.getCipher();
-                    if (cipher!=null){
-                        text = cipher.encrypt(text);
-                    }
                     ThreadSafeResources.sendMessage(text, cipher);
                 }catch(IOException ex){
                     System.out.println("Could not load message");

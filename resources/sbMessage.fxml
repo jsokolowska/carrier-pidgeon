@@ -8,7 +8,7 @@
 
 <HBox prefHeight="43.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MessageController">
    <children>
-      <VBox alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="506.0" style="-fx-background-color: #ffe1cc;">
+      <VBox onMouseClicked="#decrypt" alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="506.0" style="-fx-background-color: #ffe1cc;">
          <children>
             <Text fx:id="msgText" layoutX="10.0" layoutY="23.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae auctor est. Praesent pharetra sem ex, nec imperdiet nunc tempus iaculis. Sed suscipit venenatis mauris. Proin sodales metus ut augue tincidunt, et iaculis elit scelerisque. Sed a sodales turpis. Nunc. " wrappingWidth="500.0">
                <font>

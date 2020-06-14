@@ -44,7 +44,7 @@ public class Contact {
         }
 
     }
-    public void addMessage(Message msg, boolean mine){
+    public void addMessage(Message msg, boolean mine, boolean ciphered){
         String location;
         if (mine){
             location = "/resources/myMessage.fxml";
@@ -55,8 +55,17 @@ public class Contact {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(location));
             Node message = loader.load();
             MessageController controller = loader.getController();
-            controller.makeMsg(msg);
-            messages.add(message);
+            if(ciphered){
+                controller.makeCipheredMsg(msg.getMess());
+            }else{
+                controller.makeMsg(msg);
+            }
+            if(messages == null){
+                messages = FXCollections.observableArrayList(message);
+            }else{
+                messages.add(message);
+            }
+
             this.controller.showNewMessage(msg);
 
         } catch (IOException exception) {
