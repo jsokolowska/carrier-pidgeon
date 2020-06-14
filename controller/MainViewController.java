@@ -39,12 +39,9 @@ public class MainViewController extends MenuController {
     @FXML
     private VBox contactsBox;
 
-    private int contactsVersion;
-    private int messageVersion;
-
     @FXML
     private void initialize(){
-        contactsVersion = ContactsManager.getVersion();
+
         ContactsManager.setContacts(contactsBox.getChildren());
     }
 
@@ -98,12 +95,5 @@ public class MainViewController extends MenuController {
         IPAddress.setText(ip);
         portNr.setText(port);
         contactName.setText("");
-    }
-
-    public void update(){
-        if(contactsVersion < ContactsManager.getVersion()){
-            //check for new connections and messages
-        }
-
     }
 }

@@ -14,10 +14,9 @@ public class SharedResources {
     public static BlockingQueue<Message> sentMsgQueue;
     public static BlockingQueue<Message> receivedMsgQueue;
     public static Peer peer;
-    public static int version;
     static {
-        version = 0;
         sentMsgQueue = new LinkedBlockingQueue<>();
         receivedMsgQueue = new LinkedBlockingQueue<>();
     }
+
 }

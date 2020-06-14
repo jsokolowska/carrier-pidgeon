@@ -3,6 +3,7 @@ package controller;
 import controller.util.FXMLResourcesManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.util.SharedResources;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -32,8 +33,6 @@ public class Pigeon extends Application {
     }
     private void cleanUpResources (){
         System.out.println("Cleaning up resources...");
-        /*todo save messages
-         * - save contacts?
-         * - clean up resources*/
+        System.exit(0);
     }
 }

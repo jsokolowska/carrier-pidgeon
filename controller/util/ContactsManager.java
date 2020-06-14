@@ -17,10 +17,12 @@ import java.util.concurrent.BlockingQueue;
 public class ContactsManager {
     private static final Dictionary<String, PeerInfo> allMessages;
     private static ObservableList<Node> contacts;
+    public static String currentContact;
     //private static LinkedList<String> contacts;
     private static int version;
     static {
         //contacts = new LinkedList<>();
+        currentContact = null;
         allMessages = new Hashtable<>();
         version = 0;
     }
@@ -37,6 +39,12 @@ public class ContactsManager {
 
     public static BlockingQueue<Parent> getMessages(String name){
         return allMessages.get(name).getMessages();
+    }
+    public static void addMessage (Parent msg){
+        if(currentContact!=null){
+            allMessages.get(currentContact).getMessages().add(msg);
+        }
+        
     }
     public static PeerInfo getPeerInfo(String name){
         return allMessages.get(name);

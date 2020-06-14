@@ -1,5 +1,7 @@
 package model;
 
+import model.util.SharedResources;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -30,7 +32,6 @@ public class ServerThread extends Thread {
                 ioException.printStackTrace();
             }
             new ConnectionHandler(clientSocket).start();
-            //todo - finish connection without an exception
         }
     }
     public ServerThread(int PORT) throws  IOException{

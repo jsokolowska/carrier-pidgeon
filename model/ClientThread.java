@@ -44,12 +44,12 @@ public class ClientThread extends Thread
             }
             System.out.println("Connection succesfull!");
 
-            clientInput = new DataInputStream(socket.getInputStream());
+           /* clientInput = new DataInputStream(socket.getInputStream());
             clientOutput = new DataOutputStream(socket.getOutputStream());
-            while(true)
+            while()
             {
                 //główne miejsce na wysyłanie i odbieranie
-            }
+            }*/
         }
         catch (UnknownHostException e) {
             System.out.println("Cannot find host!");
