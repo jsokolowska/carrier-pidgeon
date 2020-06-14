@@ -47,7 +47,7 @@ public class MainViewController extends MenuController {
     @FXML
     private void initialize(){
 
-        ThreadSafeResources.setContactsRoot(contactsBox);
+        ThreadSafeResources.setRoots(contactsBox, outerMessageBox);
     }
 
 
@@ -58,20 +58,25 @@ public class MainViewController extends MenuController {
     @FXML
     private void sendMsg(){
         //todo actually send msg
-        String text = messageText.getText();
-        text = text.trim();
-        if(text.length() >0){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/myMessage.fxml"));
-            try{
-                HBox msg = loader.load();
-                MessageController msgCont = loader.getController();
-                msgCont.makeMsg(text);
-                outerMessageBox.getChildren().add(msg);
-                messageText.setText("");
-            }catch(IOException ex){
-                System.out.println("Could not load message");
+        if(!contactName.getText().equals("")){
+            String text = messageText.getText();
+            text = text.trim();
+            if(text.length() >0){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/myMessage.fxml"));
+                try{
+                    HBox msg = loader.load();
+                    MessageController msgCont = loader.getController();
+                    msgCont.makeMsg(text);
+                    outerMessageBox.getChildren().add(msg);
+                    messageText.setText("");
+                }catch(IOException ex){
+                    System.out.println("Could not load message");
+                }
             }
+        }else {
+            messageText.setText("");
         }
+
     }
 
     @FXML

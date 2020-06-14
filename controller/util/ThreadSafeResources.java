@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import model.Message;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -17,6 +18,7 @@ import java.util.LinkedList;
 public class ThreadSafeResources {
     private static String username;
     private static VBox contactsRoot;
+    private static VBox outerMsgBox;
     private static final Dictionary <String, Contact> contacts;
     private static final LinkedList<String> contactNames;
     static {
@@ -27,20 +29,26 @@ public class ThreadSafeResources {
     public static synchronized void setUsername(String name){
         username=name;
     }
+
     private static synchronized String getUsername(){
         return username;
     }
-    public static void addContact(Contact contact){
+
+    public static void addContact(@NotNull Contact contact, Node contactNode){
         //does not need to be synchronized as it only uses hashtable
+        addContactInfo(contactNode);
         addContactName(contact.getName());
         contacts.put(contact.getName(), contact);
     }
+
     private synchronized static void addContactName(String name){
         contactNames.add(name);
     }
+
     public static synchronized boolean exists(String contactName){
         return contactNames.contains(contactName);
     }
+
     public synchronized static VBox getMessageRoot(String contactName){
         Contact contact = contacts.get(contactName);
         if (contact != null){
@@ -52,10 +60,12 @@ public class ThreadSafeResources {
         Contact contact = contacts.get(msg.getUserNick());
         contact.addMessage(msg, mine);
     }
-    public static synchronized void setContactsRoot(VBox root){
-        contactsRoot = root;
+    public static synchronized void setRoots(VBox contactsRoot, VBox outerMsgBox){
+        ThreadSafeResources.contactsRoot = contactsRoot;
+        ThreadSafeResources.outerMsgBox = outerMsgBox;
+
     }
-    public static synchronized void addContactInfo(Node node){
+    private static synchronized void addContactInfo(Node node){
         contactsRoot.getChildren().add(node);
     }
 }

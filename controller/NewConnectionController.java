@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.ClientThread;
@@ -34,6 +35,13 @@ public class NewConnectionController {
     private TextField peerPort;
     @FXML
     private Text errorMsg;
+
+    @FXML
+    private void initialize(){
+        errorMsg.setText("");
+        clean();
+    }
+
     @FXML
     private void tryToConnect (){
         System.out.println("You clicked connect!");
@@ -45,20 +53,26 @@ public class NewConnectionController {
             String hostName = ClientThread.checkConnection(hostIP, portNum);
             if(hostName != null){
                 System.out.println("Sucessfully connected to " + hostName);
+                if(ThreadSafeResources.exists(hostName)){
+                    errorMsg.setText("Contact already created");
+                }else{
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/contactInfo.fxml"));
+                        Parent contact = loader.load();
+                        ContactInfoController controller = loader.getController();
+                        controller.makeContact(hostName, false);
+                        VBox mbox = FXMLLoader.load(getClass().getResource("/resources/innerMsgBox.fxml"));
+                        Contact newContact = new Contact(controller, mbox);
+                        ThreadSafeResources.addContact(newContact, contact);
 
-                 try {
-                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/contactInfo.fxml"));
-                     Parent contact = loader.load();
-                     ContactInfoController controller = loader.getController();
-                     controller.makeContact(hostName, false);
-                     ThreadSafeResources.addContactInfo(contact);
-                 }catch (IOException ex){
-                     System.out.println("COuld not load resources");
-                 }
-                //Contact contact = new Contact(null, null);
-                System.out.println("Closing scene!");
-                Stage currStage = (Stage)connectButton.getScene().getWindow();
-                currStage.close();
+                    }catch (IOException ex){
+                        System.out.println("Could not load resources");
+                    }
+                    System.out.println("Closing scene!");
+                    Stage currStage = (Stage)connectButton.getScene().getWindow();
+                    currStage.close();
+                }
+
             }else{
                 errorMsg.setText("Wrong credentials");
                 errorMsg.setVisible(true);
@@ -79,7 +93,7 @@ public class NewConnectionController {
     }
 
     private void clean(){
-        errorMsg.setText("");
+        //errorMsg.setText("");
         peerIP.setText("");
         peerName.setText("");
         peerPort.setText("");
