@@ -1,7 +1,5 @@
 package model;
 
-import model.util.SharedResources;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -9,37 +7,44 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author Joanna Sokołowska
- */
-
 public class ServerThread extends Thread {
     private ServerSocket serverSocket;
-    //private static FileHandler fhandl;
-    //private static final Logger LOGGER;
+    private static FileHandler fhandl;
+    private static final Logger LOGGER;
     private final int PORT;
-//    static{
-//        LOGGER = Logger.getLogger(ServerThread.class.getName());
-//    }
+    static{
+        LOGGER = Logger.getLogger(ServerThread.class.getName());
+    }
 
     @Override
     public void  run(){
-        while(true){
-            Socket clientSocket = null;
-            try {
-                clientSocket = serverSocket.accept();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
+        System.out.println("Server dziala");
+        try{
+            serverSocket = new ServerSocket(PORT);
+            System.out.println("Port: " + PORT);
+            while(true){
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Odpalam Connection Handler");
+                new ConnectionHandler(clientSocket).start();
             }
-            new ConnectionHandler(clientSocket).start();
+
+        }catch (IOException e){
+            if(fhandl==null){
+                try {
+                    fhandl = new FileHandler(ServerThread.class.getName());
+                } catch (IOException exception) {
+                    e.printStackTrace();
+                }
+            }
+
+            LOGGER.setLevel(Level.SEVERE);
+            LOGGER.info("Log directed to file");
+            LOGGER.info("Could not create server Socket:" + this);
+            System.out.println("Could not create Server Thread -quiting?");
         }
     }
-    public ServerThread(int PORT) throws  IOException{
+    public ServerThread(int PORT){
         this.PORT = PORT;
-        System.out.println("Starting server");
-        serverSocket = new ServerSocket(PORT);
-        System.out.println("Succesfull");
-
     }
 
     public String toString(){
