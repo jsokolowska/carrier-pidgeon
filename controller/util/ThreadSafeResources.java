@@ -1,8 +1,14 @@
 package controller.util;
 
+import controller.ContactInfoController;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.Message;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +21,7 @@ import java.util.LinkedList;
  */
 public class ThreadSafeResources {
     private static String username;
+    private static int port;
     private static VBox contactsRoot;
     private static VBox outerMsgBox;
     private static Text displayedContactName;
@@ -29,8 +36,14 @@ public class ThreadSafeResources {
         username=name;
     }
 
-    private static synchronized String getUsername(){
+    public static synchronized String getUsername(){
         return username;
+    }
+    public static synchronized void setPort(int portNr){
+        port = portNr;
+    }
+    public static synchronized int getPort(){
+        return port;
     }
 
     public static void addContact(@NotNull Contact contact, Node contactNode){
@@ -38,6 +51,32 @@ public class ThreadSafeResources {
         addContactInfo(contactNode);
         addContactName(contact.getName());
         contacts.put(contact.getName(), contact);
+    }
+    public static void addContact(String contactName, String ipAddress, int port){
+        FXMLResourcesManager manager = new FXMLResourcesManager();
+        ContactInfoController controller = manager.getController();
+        Node contactInfo = manager.getContactInfo();
+        controller.makeContact(contactName);
+        Contact contact = new Contact(controller, manager.getMbox(), ipAddress, port);
+        // addContact(contact, contactInfo);
+    }
+    public static void addContactLater(String contactName, String ipAddress, int port){
+        FXMLResourcesManager manager = new FXMLResourcesManager();
+        ContactInfoController controller = manager.getController();
+        Node contactInfo = manager.getContactInfo();
+        controller.makeContact(contactName);
+        Contact contact = new Contact(controller, manager.getMbox(), ipAddress, port);
+         addContactLater(contact, contactInfo);
+    }
+    public static void addContactLater(@NotNull Contact contact, Node contactNode){
+        Platform.setImplicitExit(false);
+        Platform.runLater(()->{
+            System.out.println("Inside run later");
+            addContactInfo(contactNode);
+        });
+        addContactName(contact.getName());
+        contacts.put(contact.getName(), contact);
+
     }
 
     private synchronized static void addContactName(String name){
@@ -48,13 +87,6 @@ public class ThreadSafeResources {
         return contactNames.contains(contactName);
     }
 
-    public synchronized static VBox getMessageRoot(String contactName){
-        Contact contact = contacts.get(contactName);
-        if (contact != null){
-            return contact.getInnerMsgBox();
-        }
-        return null;
-    }
     public synchronized static void addMessage(Message msg, boolean mine){
         Contact contact = contacts.get(msg.getUserNick());
         contact.addMessage(msg, mine);
@@ -71,10 +103,24 @@ public class ThreadSafeResources {
 
     public static synchronized void openConversation(String contactName){
         if(exists(contactName)){
-            Contact contact = contacts.get(contactName);
-            VBox innerMsgBox = contact.getInnerMsgBox();
-            outerMsgBox.getChildren().setAll(innerMsgBox);
-            setContactName(contactName);
+            int howmany = outerMsgBox.getChildren().size();
+            String currName = displayedContactName.getText();
+            if(!contactName.equals(currName)){
+                if(howmany>0){
+                    if(!currName.equals("")){
+                        Contact currContact = contacts.get(currName);
+                        currContact.saveMessages(outerMsgBox);
+                    }
+                }
+
+                Contact contact = contacts.get(contactName);
+                if (contact.getMessages()!=null){
+                    outerMsgBox.getChildren().setAll(contact.getMessages());
+                }else{
+                    outerMsgBox.getChildren().clear();
+                }
+                setContactName(contactName);
+            }
         }
     }
     private static synchronized void setContactName(String name){

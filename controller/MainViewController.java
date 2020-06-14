@@ -25,8 +25,6 @@ import java.io.IOException;
 
 public class MainViewController extends MenuController {
     @FXML
-    private VBox innerMessageBox;
-    @FXML
     private TextArea messageText;
     @FXML
     private Button sendButton;
@@ -46,7 +44,6 @@ public class MainViewController extends MenuController {
 
         ThreadSafeResources.setRoots(contactsBox, outerMessageBox, contactName);
     }
-
 
     @FXML
     private void sendMsg(){
@@ -94,12 +91,9 @@ public class MainViewController extends MenuController {
             newConn.setScene(newConnection);
             newConn.initModality(Modality.APPLICATION_MODAL);
             newConn.show();
-            System.out.println("You clicked to add new connection");
         }catch (IOException ex){
             System.out.println("Could not get resource");
         }
-
-
     }
 
     public void setInfo (PeerInfo peerInfo){

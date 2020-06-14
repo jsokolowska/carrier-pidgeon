@@ -30,16 +30,19 @@ public class Pigeon extends Application {
         try{
 
             showWelcomeScreen(peerInfo);
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/resources/mainView.fxml"));
-            Parent mainRoot = mainLoader.load();
-            MainViewController mainViewController = mainLoader.getController();
-            mainViewController.setInfo(peerInfo);
-            Scene mainScene = new Scene(mainRoot);
+            if(!peerInfo.getName().equals("")){
+                FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/resources/mainView.fxml"));
+                Parent mainRoot = mainLoader.load();
+                MainViewController mainViewController = mainLoader.getController();
+                mainViewController.setInfo(peerInfo);
+                Scene mainScene = new Scene(mainRoot);
 
-            primaryStage.setScene(mainScene);
-            primaryStage.setTitle("Carrier Pigeon");
-            primaryStage.setOnCloseRequest(e-> cleanUpResources());
-            primaryStage.show();
+                primaryStage.setScene(mainScene);
+                primaryStage.setTitle("Carrier Pigeon");
+                primaryStage.setOnCloseRequest(e-> cleanUpResources());
+                primaryStage.show();
+            };
+
         }catch (IOException exception){
             System.out.println("FATAL ERROR: Could not load visual resources");
             exception.printStackTrace();

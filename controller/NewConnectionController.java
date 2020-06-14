@@ -1,7 +1,6 @@
 package controller;
 
 import controller.util.Contact;
-import controller.util.ContactsManager;
 import controller.util.ThreadSafeResources;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.ClientThread;
-import model.util.PeerInfo;
-import model.util.SharedResources;
 
 import java.io.IOException;
 
@@ -44,12 +41,10 @@ public class NewConnectionController {
 
     @FXML
     private void tryToConnect (){
-        System.out.println("You clicked connect!");
         String hostIP = peerIP.getText();
         String name = peerName.getText();
         try{
             int portNum = Integer.parseInt(peerPort.getText());
-            System.out.println("Creating new contact!");
             String hostName = ClientThread.checkConnection(hostIP, portNum);
             if(hostName != null){
                 System.out.println("Sucessfully connected to " + hostName);
@@ -60,9 +55,9 @@ public class NewConnectionController {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/contactInfo.fxml"));
                         Parent contact = loader.load();
                         ContactInfoController controller = loader.getController();
-                        controller.makeContact(hostName, false);
+                        controller.makeContact(name, false);
                         VBox mbox = FXMLLoader.load(getClass().getResource("/resources/innerMsgBox.fxml"));
-                        Contact newContact = new Contact(controller, mbox);
+                        Contact newContact = new Contact(controller, mbox, hostIP, portNum);
                         ThreadSafeResources.addContact(newContact, contact);
 
                     }catch (IOException ex){

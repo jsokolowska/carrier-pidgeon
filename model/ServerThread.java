@@ -1,5 +1,6 @@
 package model;
 
+import controller.util.ThreadSafeResources;
 import model.util.PeerInfo;
 
 import java.io.IOException;
@@ -21,7 +22,6 @@ public class ServerThread extends Thread {
         try{
             while(true){
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Incoming connection - switching to connection Handler");
                 new ConnectionHandler(clientSocket).start();
             }
         }catch (IOException ex){
@@ -36,6 +36,7 @@ public class ServerThread extends Thread {
             serverSocket = new ServerSocket(port);
             this.port = serverSocket.getLocalPort();
             pinfo.setPortNum(this.port);
+            ThreadSafeResources.setPort(this.port);
         }catch (IOException ex){
             LOGGER.setLevel(Level.SEVERE);
             LOGGER.info("Could not create server socket");

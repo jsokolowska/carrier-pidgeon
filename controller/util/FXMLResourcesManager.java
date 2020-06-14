@@ -1,8 +1,11 @@
 package controller.util;
 
+import controller.ContactInfoController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import model.Message;
 
 import java.io.IOException;
@@ -14,37 +17,37 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 
 public class FXMLResourcesManager {
-    private static Scene welcomeScene;
-    private static Scene mainScene;
-    private static Scene newConnectionScene;
     private static SceneType currentScene;
+    private ContactInfoController controller;
+    private Node contactInfo;
+    private VBox mbox;
 
-
-    public void loadAllResources () throws IOException{
-        Parent welcome = FXMLLoader.load(getClass().getResource("/resources/welcome.fxml"));
-        Parent main =  FXMLLoader.load(getClass().getResource("/resources/mainView.fxml"));
-        Parent newConnection = FXMLLoader.load(getClass().getResource("/resources/newConnection.fxml"));
-
-        welcomeScene = new Scene(welcome);
-        mainScene = new Scene(main);
-        newConnectionScene = new Scene(newConnection);
+    private static synchronized void setCurrentScene (SceneType type){
+        currentScene = type;
     }
-
-    public static Scene getWelcomeScene() {
-        currentScene = SceneType.WELCOME;
-        return welcomeScene;
-    }
-
-    public static Scene getMainScene() {
-        currentScene = SceneType.MAIN;
-        return mainScene;
-    }
-
-    public static Scene getNewConnectionScene() {
-        return newConnectionScene;
-    }
-
-    public static SceneType getCurrentScene() {
+    private static synchronized SceneType getCurrentScene (){
         return currentScene;
+    }
+    public FXMLResourcesManager(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/contactInfo.fxml"));
+        try{
+            contactInfo = loader.load();
+            controller = loader.getController();
+            mbox = FXMLLoader.load(getClass().getResource("/resources/innerMsgBox.fxml"));
+        }catch (IOException ex){
+            System.out.println("Could not load visuals");
+            ex.printStackTrace();
+        }
+    }
+
+    public ContactInfoController getController(){
+        return controller;
+    }
+    public Node getContactInfo(){
+        return contactInfo;
+    }
+
+    public VBox getMbox() {
+        return mbox;
     }
 }

@@ -2,12 +2,18 @@ package controller.util;
 
 import controller.ContactInfoController;
 import controller.MessageController;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import model.Message;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * @author Joanna Sokołowska
@@ -16,19 +22,34 @@ import java.io.IOException;
 public class Contact {
     private final String name;
     private ContactInfoController controller;
-    private final VBox innerMessageBox;
+    private final VBox outerMessageBox;
+    private final String ipAddress;
+    private final int port;
+    private ObservableList<Node> messages;
 
     public String getName(){
         return name;
     }
-    public Contact(ContactInfoController controller, VBox innerMessageBox){
+    public Contact(ContactInfoController controller, VBox outerMessageBox, String ipAddress, int port){
         name = controller.getContactName();
-        this.innerMessageBox = innerMessageBox;
         this.controller = controller;
-
+        this.port=port;
+        this.ipAddress=ipAddress;
+        this.outerMessageBox = outerMessageBox;
+        messages = null;
     }
-    public VBox getInnerMsgBox(){
-        return innerMessageBox;
+    public ObservableList<Node> getMessages(){
+        int how = 0;
+        if(messages != null){
+            how = messages.size();
+        }
+        return messages;
+    }
+    public void saveMessages(VBox outerMessageBox){
+        if (outerMessageBox.getChildren()!= null){
+            messages = FXCollections.observableArrayList(outerMessageBox.getChildren());
+        }
+
     }
     public void addMessage(Message msg, boolean mine){
         String location;
@@ -42,10 +63,17 @@ public class Contact {
             Node message = loader.load();
             MessageController controller = loader.getController();
             controller.makeMsg(msg);
-            innerMessageBox.getChildren().add(message);
+            outerMessageBox.getChildren().add(message);
 
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+    public int getPort(){
+        return port;
     }
 }

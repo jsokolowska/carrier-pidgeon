@@ -25,16 +25,16 @@ public abstract class MenuController {
     @FXML
     private void goHome(){
         Stage currStage = (Stage) menuBar.getScene().getWindow();
-        if(FXMLResourcesManager.getCurrentScene()!= SceneType.MAIN){
-            currStage.setScene(FXMLResourcesManager.getMainScene());
-        }
+//        if(FXMLResourcesManager.getCurrentScene()!= SceneType.MAIN){
+//            currStage.setScene(FXMLResourcesManager.getMainScene());
+//        }
     }
 
     @FXML
     private void logOut(){
-        if(FXMLResourcesManager.getCurrentScene() == SceneType.MAIN){
-            //todo waiting: end session and switch scene to welcome
-        }
+//        if(FXMLResourcesManager.getCurrentScene() == SceneType.MAIN){
+//            //todo waiting: end session and switch scene to welcome
+//        }
 
     }
 
