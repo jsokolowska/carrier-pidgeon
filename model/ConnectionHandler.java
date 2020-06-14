@@ -1,3 +1,5 @@
+package model;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.logging.FileHandler;
@@ -28,10 +30,12 @@ public class ConnectionHandler extends Thread {
             in = new DataInputStream(new BufferedInputStream(PEER_SOCKET.getInputStream()));
 
             Message msg = readMsgFromClient();
+            System.out.println("Gonna handle the message");
             handleMessage(msg);
             in.close();
 
         }catch (IOException ioException){
+            ioException.printStackTrace();
             LOGGER.setLevel(Level.ALL);
             LOGGER.info("Could not read message from Input Stream");
         }finally {
@@ -49,7 +53,6 @@ public class ConnectionHandler extends Thread {
             try{
                 fhandl = new FileHandler(ConnectionHandler.class.getName());
                 LOGGER.setLevel(Level.ALL);
-                LOGGER.info("Error reading data from peer connection");
             }catch (IOException ioException){
                 ioException.printStackTrace();
                 //todo possibly close?
@@ -61,9 +64,12 @@ public class ConnectionHandler extends Thread {
         String mess = "";
         String userNick = "";
         try{
+            System.out.println("Reading Msg");
             userNick = in.readUTF();
             mess = in.readUTF();
+            System.out.println(userNick + ": "+  mess);
         }catch (IOException ioException){
+            ioException.printStackTrace();
             LOGGER.info("IOEXception while reading from peer socket");
         }
 

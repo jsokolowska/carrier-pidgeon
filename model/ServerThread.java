@@ -1,3 +1,5 @@
+package model;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -24,7 +26,6 @@ public class ServerThread extends Thread {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Odpalam Connection Handler");
                 new ConnectionHandler(clientSocket).start();
-                //todo - finish connection without an exception
             }
 
         }catch (IOException e){
