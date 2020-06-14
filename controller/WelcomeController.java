@@ -20,8 +20,6 @@ import model.util.PeerInfo;
 public class WelcomeController extends MenuController {
     @FXML
     private TextField usernameField;
-    //@FXML
-    //private TextField portField;
     @FXML
     private Button toMainButton;
     @FXML

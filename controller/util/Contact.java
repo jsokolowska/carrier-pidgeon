@@ -27,7 +27,7 @@ public class Contact {
         this.controller = controller;
 
     }
-    public VBox getMessageRoot(){
+    public VBox getInnerMsgBox(){
         return innerMessageBox;
     }
     public void addMessage(Message msg, boolean mine){

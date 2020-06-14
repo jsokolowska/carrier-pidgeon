@@ -1,10 +1,8 @@
 package controller.util;
 
-import controller.ContactInfoController;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import model.Message;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +17,7 @@ public class ThreadSafeResources {
     private static String username;
     private static VBox contactsRoot;
     private static VBox outerMsgBox;
+    private static Text displayedContactName;
     private static final Dictionary <String, Contact> contacts;
     private static final LinkedList<String> contactNames;
     static {
@@ -52,7 +51,7 @@ public class ThreadSafeResources {
     public synchronized static VBox getMessageRoot(String contactName){
         Contact contact = contacts.get(contactName);
         if (contact != null){
-            return contact.getMessageRoot();
+            return contact.getInnerMsgBox();
         }
         return null;
     }
@@ -60,12 +59,25 @@ public class ThreadSafeResources {
         Contact contact = contacts.get(msg.getUserNick());
         contact.addMessage(msg, mine);
     }
-    public static synchronized void setRoots(VBox contactsRoot, VBox outerMsgBox){
+    public static synchronized void setRoots(VBox contactsRoot, VBox outerMsgBox, Text contactName){
         ThreadSafeResources.contactsRoot = contactsRoot;
         ThreadSafeResources.outerMsgBox = outerMsgBox;
+        displayedContactName = contactName;
 
     }
     private static synchronized void addContactInfo(Node node){
         contactsRoot.getChildren().add(node);
+    }
+
+    public static synchronized void openConversation(String contactName){
+        if(exists(contactName)){
+            Contact contact = contacts.get(contactName);
+            VBox innerMsgBox = contact.getInnerMsgBox();
+            outerMsgBox.getChildren().setAll(innerMsgBox);
+            setContactName(contactName);
+        }
+    }
+    private static synchronized void setContactName(String name){
+        displayedContactName.setText(name);
     }
 }

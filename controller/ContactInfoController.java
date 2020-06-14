@@ -1,5 +1,6 @@
 package controller;
 
+import controller.util.ThreadSafeResources;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Circle;
@@ -57,9 +58,7 @@ public class ContactInfoController {
     }
     @FXML
     private void openConversation(){
-        Stage currStage = (Stage) openButton.getScene().getWindow();
-        //todo load conversation screen according to peer info
-
+        ThreadSafeResources.openConversation(contactName.getText());
     }
 
     public String getContactName() {

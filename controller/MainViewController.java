@@ -1,11 +1,8 @@
 package controller;
 
-import controller.util.ContactsManager;
-import controller.util.FXMLResourcesManager;
 import controller.util.ThreadSafeResources;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -47,13 +44,9 @@ public class MainViewController extends MenuController {
     @FXML
     private void initialize(){
 
-        ThreadSafeResources.setRoots(contactsBox, outerMessageBox);
+        ThreadSafeResources.setRoots(contactsBox, outerMessageBox, contactName);
     }
 
-
-    public void setName(String peerName){
-        contactName.setText(peerName);
-    }
 
     @FXML
     private void sendMsg(){
