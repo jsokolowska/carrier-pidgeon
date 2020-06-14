@@ -1,6 +1,7 @@
 package controller;
 
 import controller.util.FXMLResourcesManager;
+import controller.util.ThreadSafeResources;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,11 +12,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Peer;
 import model.ServerThread;
+import model.util.PeerInfo;
 import model.util.SharedResources;
 
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * @author Joanna Sokołowska
@@ -24,58 +27,35 @@ import java.net.InetAddress;
 public class WelcomeController extends MenuController {
     @FXML
     private TextField usernameField;
-    @FXML
-    private TextField portField;
+    //@FXML
+    //private TextField portField;
     @FXML
     private Button toMainButton;
     @FXML
     private Text incorrectText;
 
-    private static int contactCounter;
-    static {
-        contactCounter=0;
-    }
+    private PeerInfo peerInfo;
+
+
 
     public WelcomeController(){}
 
     @FXML
     private void toMain(){
-            /*todo
-            *  verify if passed port is a number
-            *  try to start server with provided port nr
-            *  display error message in case of an error*/
-        try {
-            int port = Integer.parseInt(portField.getText());
-            String user = usernameField.getText();
-            try{
-                ServerThread serverThread = new ServerThread(port);
-                serverThread.start();
-                InetAddress add = Inet4Address.getLocalHost();
-                SharedResources.peer = new Peer(user, port, add.toString());
-
-                Stage currStage = (Stage) toMainButton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/mainView.fxml"));
-                Parent mainView = loader.load();
-
-                MainViewController controller = loader.getController();
-                controller.setInfo(add.toString(), Integer.toString(port));
-
-                Scene mainScene = new Scene(mainView);
-                currStage.setScene(mainScene);
-                clean();
-            }catch (IOException ex){
-                incorrectText.setText("Could not start server");
-            }
-        }catch (NumberFormatException ex){
-            incorrectText.setText("Wrong credentials");
-        }
+        String name = usernameField.getText();
+        peerInfo.setName(name);
+        ThreadSafeResources.setUsername(name);
+        ServerThread serverThread = new ServerThread(0, peerInfo);
+        serverThread.start();
+        Stage currStage = (Stage) toMainButton.getScene().getWindow();
+        currStage.close();
+        clean();
     }
     private void clean(){
         usernameField.setText("");
-        portField.setText("");
         incorrectText.setText("");
     }
-    public void displayErrorMsg(String msg){
-        incorrectText.setText(msg);
+    void setPeerInfo(PeerInfo pinfo){
+        peerInfo = pinfo;
     }
 }

@@ -37,13 +37,13 @@ public class NewConnectionController {
         try{
             int portNum = Integer.parseInt(peerPort.getText());
             System.out.println("Creating new contact!");
-            SharedResources.peer.connect(hostIP, portNum);
+            //SharedResources.peer.connect(hostIP, portNum);
             ContactsManager.addNewContact(name, hostIP, portNum, null);
             System.out.println("Closing scene!");
             Stage currStage = (Stage)connectButton.getScene().getWindow();
             currStage.close();
 
-        }catch (NumberFormatException | IOException ex ){
+        }catch (NumberFormatException ex ){
             errorMsg.setText("Wrong credentials");
             errorMsg.setVisible(true);
             clean();

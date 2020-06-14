@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.util.PeerInfo;
 import model.util.SharedResources;
 
 import java.io.IOException;
@@ -91,9 +92,10 @@ public class MainViewController extends MenuController {
         System.out.println("You clicked to add new connection");
     }
 
-    public void setInfo (String ip, String port){
-        IPAddress.setText(ip);
-        portNr.setText(port);
+    public void setInfo (PeerInfo peerInfo){
+        IPAddress.setText(peerInfo.getIpAddress());
+        portNr.setText(Integer.toString(peerInfo.getPortNum()));
         contactName.setText("");
     }
+
 }

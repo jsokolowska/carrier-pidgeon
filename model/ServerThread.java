@@ -1,53 +1,51 @@
 package model;
 
+import model.util.PeerInfo;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ServerThread extends Thread {
     private ServerSocket serverSocket;
-    private static FileHandler fhandl;
     private static final Logger LOGGER;
-    private final int PORT;
+    private int port;
     static{
         LOGGER = Logger.getLogger(ServerThread.class.getName());
     }
 
     @Override
     public void  run(){
-        System.out.println("Server dziala");
         try{
-            serverSocket = new ServerSocket(PORT);
-            System.out.println("Port: " + PORT);
             while(true){
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Odpalam Connection Handler");
+                System.out.println("Incoming connection - switching to connection Handler");
                 new ConnectionHandler(clientSocket).start();
             }
-
-        }catch (IOException e){
-            if(fhandl==null){
-                try {
-                    fhandl = new FileHandler(ServerThread.class.getName());
-                } catch (IOException exception) {
-                    e.printStackTrace();
-                }
-            }
-
-            LOGGER.setLevel(Level.SEVERE);
-            LOGGER.info("Log directed to file");
-            LOGGER.info("Could not create server Socket:" + this);
-            System.out.println("Could not create Server Thread -quiting?");
+        }catch (IOException ex){
+            LOGGER.setLevel(Level.ALL);
+            LOGGER.info("Error while listening on port " + port);
         }
+
+
     }
-    public ServerThread(int PORT){
-        this.PORT = PORT;
+    public ServerThread(int port, PeerInfo pinfo){
+        try{
+            serverSocket = new ServerSocket(port);
+            this.port = serverSocket.getLocalPort();
+            pinfo.setPortNum(this.port);
+        }catch (IOException ex){
+            LOGGER.setLevel(Level.SEVERE);
+            LOGGER.info("Could not create server socket");
+            System.exit(-1);
+        }
+
     }
 
     public String toString(){
-        return "ServerThread on port " + PORT;
+        return "ServerThread on port " + port;
     }
+
 }

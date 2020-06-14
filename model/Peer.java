@@ -16,7 +16,7 @@ public class Peer {
 
     }
 
-    public String getName(){
+    public String getUserName(){
         return name;
     }
 
@@ -24,7 +24,7 @@ public class Peer {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter username and port number:");
         String[] setupValues = bufferedReader.readLine().split(" ");
-        ServerThread serverThread = new ServerThread(Integer.parseInt(setupValues[1]));
+        ServerThread serverThread = new ServerThread(Integer.parseInt(setupValues[1]), null);
         serverThread.start();
         ClientThread client = new ClientThread(setupValues[0]);
         client.start();

@@ -28,24 +28,24 @@ public class ContactsManager {
     }
 
     public static void addNewContact(String name, String ipAddress, int port, BlockingQueue<Parent> messages){
-        version ++;
-        PeerInfo peer = new PeerInfo(ipAddress, name, port, messages);
-        allMessages.put(name, peer);
-        contacts.add(peer.getContactInfo());
+//        version ++;
+//        PeerInfo peer = new PeerInfo(ipAddress, name, port);
+//        allMessages.put(name, peer);
+//        contacts.add(peer.getContactInfo());
         /*synchronized (contacts){
             contacts.add(name);
         }*/
     }
 
-    public static BlockingQueue<Parent> getMessages(String name){
-        return allMessages.get(name).getMessages();
-    }
-    public static void addMessage (Parent msg){
-        if(currentContact!=null){
-            allMessages.get(currentContact).getMessages().add(msg);
-        }
-        
-    }
+//    public static BlockingQueue<Parent> getMessages(String name){
+////        return allMessages.get(name).getMessages();
+//    }
+//    public static void addMessage (Parent msg){
+//        if(currentContact!=null){
+//            allMessages.get(currentContact).getMessages().add(msg);
+//        }
+//
+//    }
     public static PeerInfo getPeerInfo(String name){
         return allMessages.get(name);
     }

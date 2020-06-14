@@ -47,8 +47,6 @@
                      <children>
                         <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="Username" />
                         <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="250.0" GridPane.columnIndex="1" />
-                        <Label text="Port" GridPane.rowIndex="1" />
-                        <TextField fx:id="portField" prefHeight="26.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <HBox prefHeight="33.0" prefWidth="305.0">
