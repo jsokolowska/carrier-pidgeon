@@ -50,6 +50,16 @@ public class ClientThread extends Thread
         }
     }
 
+    public static String checkConnection(String ipAddress, int port){
+        try{
+            Socket socket = new Socket(ipAddress, port);
+            //send hello message
+            socket.close();
+            return "somename";
+        } catch (IOException ignored) {}
+        return null;
+    }
+
     public void connect(BufferedReader bufferedReader) throws IOException
     {
         String hostname = "localhost";

@@ -28,20 +28,8 @@ public class Pigeon extends Application {
 
         PeerInfo peerInfo = new PeerInfo();
         try{
-            FXMLLoader welcomeLoader = new FXMLLoader(getClass().getResource("/resources/welcome.fxml"));
-            Parent welcome = welcomeLoader.load();
-            WelcomeController controller = welcomeLoader.getController();
-            controller.setPeerInfo(peerInfo);
 
-            Scene welcomeScene = new Scene(welcome);
-            Stage welcomeStage = new Stage();
-
-            welcomeStage.setTitle("Log in");
-            welcomeStage.setScene(welcomeScene);
-            welcomeStage.showAndWait();
-
-            System.out.println(peerInfo);
-
+            showWelcomeScreen(peerInfo);
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/resources/mainView.fxml"));
             Parent mainRoot = mainLoader.load();
             MainViewController mainViewController = mainLoader.getController();
@@ -54,10 +42,27 @@ public class Pigeon extends Application {
             primaryStage.show();
         }catch (IOException exception){
             System.out.println("FATAL ERROR: Could not load visual resources");
+            exception.printStackTrace();
+            System.exit(0);
         }
     }
     private void cleanUpResources (){
         System.out.println("Cleaning up resources...");
         System.exit(0);
+    }
+    private void showWelcomeScreen(PeerInfo peerInfo) throws IOException {
+        FXMLLoader welcomeLoader = new FXMLLoader(getClass().getResource("/resources/welcome.fxml"));
+        Parent welcome = welcomeLoader.load();
+        WelcomeController controller = welcomeLoader.getController();
+        controller.setPeerInfo(peerInfo);
+
+        Scene welcomeScene = new Scene(welcome);
+        Stage welcomeStage = new Stage();
+
+        welcomeStage.setTitle("Log in");
+        welcomeStage.setScene(welcomeScene);
+        welcomeStage.showAndWait();
+
+        System.out.println(peerInfo);
     }
 }

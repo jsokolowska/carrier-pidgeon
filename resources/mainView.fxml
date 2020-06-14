@@ -96,7 +96,10 @@
                   </HBox>
                   <ScrollPane hbarPolicy="NEVER" prefHeight="611.0" prefWidth="805.0" style="-fx-border-color: lightgray;" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <content>
-                        <VBox fx:id="messageBox" prefHeight="611.0" prefWidth="796.0" />
+                        <VBox fx:id="outerMessageBox" prefHeight="611.0" prefWidth="796.0">
+                           <children>
+                              <VBox fx:id="innerMessageBox" prefHeight="611.0" prefWidth="796.0"/>
+                           </children></VBox>
                      </content>
                   </ScrollPane>
                   <GridPane style="-fx-border-color: lightgray;" GridPane.rowIndex="2">

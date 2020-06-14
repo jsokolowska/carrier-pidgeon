@@ -1,24 +1,17 @@
 package controller;
 
-import controller.util.FXMLResourcesManager;
 import controller.util.ThreadSafeResources;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.Peer;
+
 import model.ServerThread;
 import model.util.PeerInfo;
-import model.util.SharedResources;
-
-import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * @author Joanna Sokołowska
@@ -57,5 +50,12 @@ public class WelcomeController extends MenuController {
     }
     void setPeerInfo(PeerInfo pinfo){
         peerInfo = pinfo;
+    }
+
+    @FXML
+    private void onEnter(KeyEvent keyEvent){
+        if(keyEvent.getCode() == KeyCode.ENTER){
+            toMain();
+        }
     }
 }

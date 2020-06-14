@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import model.Message;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalTime;
+
 /**
  * @author Joanna Sokołowska
  */
@@ -48,6 +50,9 @@ public class ContactInfoController {
 
     public void showNewMessage( @NotNull Message lastMessage){
         unreadMsg.setVisible(true);
+        LocalTime time = LocalTime.now();
+        String timestamp = String.format("%02d", time.getHour())+ ":" + String.format("%02d", time.getMinute());
+        lastTimestamp.setText(timestamp);
         this.lastMsg.setText(lastMessage.getMess().trim());
     }
     @FXML
@@ -57,4 +62,7 @@ public class ContactInfoController {
 
     }
 
+    public String getContactName() {
+        return contactName.getText();
+    }
 }

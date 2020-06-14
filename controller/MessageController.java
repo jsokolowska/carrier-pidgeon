@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
+import model.Message;
 
 import java.time.LocalTime;
 
@@ -11,25 +12,21 @@ import java.time.LocalTime;
 
 public class MessageController {
     @FXML
-    private Text sbMsgText;
+    private Text msgText;
     @FXML
-    private Text sbTimestamp;
-    @FXML
-    private Text myMsgText;
-    @FXML
-    private Text myTimestamp;
+    private Text timestamp;
 
-    public void makeMyMsg(String message){
-        myMsgText.setText(message);
+
+    public void makeMsg(String message){
+        msgText.setText(message);
         LocalTime time = LocalTime.now();
         String timestamp = String.format("%02d", time.getHour())+ ":" + String.format("%02d", time.getMinute());
-        myTimestamp.setText(timestamp);
+        this.timestamp.setText(timestamp);
     }
 
-    public void makeSbMsg(String message){
-        sbMsgText.setText(message);
-        LocalTime time = LocalTime.now();
-        String timestamp = String.format("%02d", time.getHour())+ ":" + String.format("%02d", time.getMinute());
-        sbTimestamp.setText(timestamp);
+    public void makeMsg(Message msg){
+        makeMsg(msg.getMess());
     }
+
+
 }

@@ -2,8 +2,11 @@ package controller;
 
 import controller.util.ContactsManager;
 import controller.util.FXMLResourcesManager;
+import controller.util.ThreadSafeResources;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -16,7 +19,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.util.PeerInfo;
-import model.util.SharedResources;
 
 import java.io.IOException;
 
@@ -25,6 +27,8 @@ import java.io.IOException;
  */
 
 public class MainViewController extends MenuController {
+    @FXML
+    private VBox innerMessageBox;
     @FXML
     private TextArea messageText;
     @FXML
@@ -36,14 +40,14 @@ public class MainViewController extends MenuController {
     @FXML
     private Text portNr;
     @FXML
-    private VBox messageBox;
+    private VBox outerMessageBox;
     @FXML
     private VBox contactsBox;
 
     @FXML
     private void initialize(){
 
-        ContactsManager.setContacts(contactsBox.getChildren());
+        ThreadSafeResources.setContactsRoot(contactsBox);
     }
 
 
@@ -61,8 +65,8 @@ public class MainViewController extends MenuController {
             try{
                 HBox msg = loader.load();
                 MessageController msgCont = loader.getController();
-                msgCont.makeMyMsg(text);
-                messageBox.getChildren().add(msg);
+                msgCont.makeMsg(text);
+                outerMessageBox.getChildren().add(msg);
                 messageText.setText("");
             }catch(IOException ex){
                 System.out.println("Could not load message");
@@ -84,12 +88,20 @@ public class MainViewController extends MenuController {
 
     @FXML
     private void addNewConnection(MouseEvent mouseEvent) {
-        Scene newConnection = FXMLResourcesManager.getNewConnectionScene();
-        Stage newConn = new Stage();
-        newConn.setScene(newConnection);
-        newConn.initModality(Modality.APPLICATION_MODAL);
-        newConn.show();
-        System.out.println("You clicked to add new connection");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/newConnection.fxml"));
+        try{
+            Parent node = loader.load();
+            Scene newConnection =  new Scene(node);
+            Stage newConn = new Stage();
+            newConn.setScene(newConnection);
+            newConn.initModality(Modality.APPLICATION_MODAL);
+            newConn.show();
+            System.out.println("You clicked to add new connection");
+        }catch (IOException ex){
+            System.out.println("Could not get resource");
+        }
+
+
     }
 
     public void setInfo (PeerInfo peerInfo){
