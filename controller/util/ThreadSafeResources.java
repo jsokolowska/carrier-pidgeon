@@ -184,4 +184,7 @@ public class ThreadSafeResources {
        new ClientThread(ipAddress, port, text, cipher).start();
 
    }
+   public static synchronized String getCurrentContact(){
+        return displayedContactName.getText();
+   }
 }

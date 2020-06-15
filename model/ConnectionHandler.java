@@ -50,9 +50,7 @@ public class ConnectionHandler extends Thread {
         String userNick = "";
         try{
             userNick = in.readUTF();
-            System.out.println("Nick: " + userNick);
             mess = in.readUTF();
-            System.out.println("Mess: " + mess);
         }catch (IOException ioException){
             ioException.printStackTrace();
             LOGGER.info("IOEXception while reading from peer socket");
@@ -105,7 +103,6 @@ public class ConnectionHandler extends Thread {
             }
             msg.setUserNick(name);
             boolean finalCiphered = ciphered;
-            System.out.println("Adding message as " + finalCiphered);
             Platform.runLater(()->{
                 ThreadSafeResources.addMessage(msg, false, finalCiphered);
             });

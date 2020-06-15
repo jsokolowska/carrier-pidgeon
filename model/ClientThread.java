@@ -69,26 +69,30 @@ public class ClientThread extends Thread
     @Override
     public void run(){
         try{
+            String destName = ThreadSafeResources.getCurrentContact();
             String username = ThreadSafeResources.getUsername();
+            boolean isConnected = ThreadSafeResources.isConnected(destName);
+            if(isConnected){
+                socket = new Socket(hostName, port);
 
-            socket = new Socket(hostName, port);
 
-
-            Message msg = new Message(message, username);
-            if (cipher!= null){
-                msg.setMess( cipher.encrypt(msg.getMess()));
+                Message msg = new Message(message, username);
+                if (cipher!= null){
+                    msg.setMess( cipher.encrypt(msg.getMess()));
+                }
+                DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+                String line = "";
+                if(cipher!=null){
+                    line = msg.getUserNick() +":true";
+                }else{
+                    line = msg.getUserNick();
+                }
+                outputStream.writeUTF(line);
+                outputStream.writeUTF(msg.getMess());
+                outputStream.close();
+                socket.close();
             }
-            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-            String line = "";
-            if(cipher!=null){
-                line = msg.getUserNick() +":true";
-            }else{
-                line = msg.getUserNick();
-            }
-            outputStream.writeUTF(line);
-            outputStream.writeUTF(msg.getMess());
-            outputStream.close();
-            socket.close();
+
 
 
         }catch (IOException ex) {
