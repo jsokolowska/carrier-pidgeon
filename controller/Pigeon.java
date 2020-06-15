@@ -1,5 +1,6 @@
 package controller;
 
+import controller.util.ThreadSafeResources;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,6 +46,9 @@ public class Pigeon extends Application {
         }
     }
     private void cleanUpResources (){
+        System.out.println("Disconnecting");
+        ThreadSafeResources.disconnectFromAll();
+        System.out.println("Disconnected");
         System.exit(0);
     }
     private void showWelcomeScreen(PeerInfo peerInfo) throws IOException {

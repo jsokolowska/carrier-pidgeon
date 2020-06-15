@@ -100,11 +100,17 @@ public class MainViewController extends MenuController {
                     HBox msg = loader.load();
                     MessageController msgCont = loader.getController();
                     msgCont.makeMsg(text);
-                    outerMessageBox.getChildren().add(msg);
-                    messageText.setText("");
+                    if (ThreadSafeResources.isConnected(contactName.getText())){
+                        outerMessageBox.getChildren().add(msg);
+                        messageText.setText("");
 
-                    Cipher cipher = cipherBuilder.getCipher();
-                    ThreadSafeResources.sendMessage(text, cipher);
+                        Cipher cipher = cipherBuilder.getCipher();
+                        ThreadSafeResources.sendMessage(text, cipher);
+                    }else{
+                        msgCont.makeMsg("ERROR: Client disconnected");
+                        outerMessageBox.getChildren().add(msg);
+                    }
+
                 }catch(IOException ex){
                     System.out.println("Could not load message");
                 }

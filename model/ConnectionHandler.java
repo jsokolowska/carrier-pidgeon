@@ -81,16 +81,26 @@ public class ConnectionHandler extends Thread {
             int port = Integer.parseInt(clean);
 
             ThreadSafeResources.addContactLater(msg.getUserNick().split(":")[0], ipAddress, port);
-        }else{
-            System.out.println("Before split: " + msg.getUserNick());
+        }else if (isGoodbye(msg)){
             String[] line = msg.getUserNick().split(":");
             String name = line[0];
-            System.out.println("After split: " + name);
+            msg.setUserNick(name);
+            ThreadSafeResources.disconnect(name);
+
+            Platform.runLater(()->{
+                msg.setMess("Client disconnected");
+                ThreadSafeResources.addMessage(msg, false, false);
+            });
+        } else{
+            //System.out.println("Before split: " + msg.getUserNick());
+            String[] line = msg.getUserNick().split(":");
+            String name = line[0];
+            //System.out.println("After split: " + name);
             boolean ciphered = false;
             if(line.length>1){
                 if(line[1].equals("true")){
                     ciphered = true;
-                    System.out.println("This msg has been recognized as cyphered");
+                    //System.out.println("This msg has been recognized as cyphered");
                 }
             }
             msg.setUserNick(name);
@@ -108,5 +118,7 @@ public class ConnectionHandler extends Thread {
     private boolean isHelloBackMsg(Message msg){
         return msg.getUserNick().endsWith(helloSufix+"B");
     }
-
+    private boolean isGoodbye(Message msg){
+        return msg.getUserNick().endsWith(helloSufix+"Bye");
+    }
 }

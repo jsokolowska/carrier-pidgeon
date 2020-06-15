@@ -1,9 +1,12 @@
 package controller;
 
+import controller.util.ThreadSafeResources;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
+
+import javax.swing.*;
 
 /**
  * @author Joanna Sokołowska
@@ -18,7 +21,7 @@ public abstract class MenuController {
 
     @FXML
     private void quit (){
-        Stage currStage = (Stage) menuBar.getScene().getWindow();
+        ThreadSafeResources.disconnectFromAll();
         System.exit(0);
     }
 }

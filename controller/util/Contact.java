@@ -23,11 +23,13 @@ public class Contact {
     private final String ipAddress;
     private final int port;
     private ObservableList<Node> messages;
+    boolean connected;
 
     public String getName(){
         return name;
     }
     public Contact(ContactInfoController controller, VBox outerMessageBox, String ipAddress, int port){
+        connected = true;
         name = controller.getContactName();
         this.controller = controller;
         this.port=port;
@@ -43,6 +45,12 @@ public class Contact {
             messages = FXCollections.observableArrayList(outerMessageBox.getChildren());
         }
 
+    }
+    public void disconnect(){
+        connected = false;
+    }
+    public boolean isConnected(){
+        return connected;
     }
     public void addMessage(Message msg, boolean mine, boolean ciphered){
         String location;

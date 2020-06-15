@@ -12,6 +12,7 @@ import model.Message;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
@@ -43,6 +44,30 @@ public class ThreadSafeResources {
     }
     public static synchronized int getPort(){
         return port;
+    }
+    public static synchronized boolean isConnected (String contact){
+        Contact sb = contacts.get(contact);
+        if(sb!=null){
+            return sb.isConnected();
+        }else {
+            return false;
+        }
+    }
+    public static synchronized void disconnect (String contact){
+        Contact sb = contacts.get(contact);
+        if(sb!=null) {
+            sb.disconnect();
+        }
+    }
+    public static synchronized void disconnectFromAll (){
+        Enumeration<String> keys = contacts.keys();
+        while(keys.hasMoreElements()){
+            Contact contact = contacts.get(keys.nextElement());
+            String ipAddress = contact.getIpAddress();
+            int port = contact.getPort();
+            contact.disconnect();
+            ClientThread.disconnect(ipAddress, port);
+        }
     }
 
     public static void addContact(@NotNull Contact contact, Node contactNode){
