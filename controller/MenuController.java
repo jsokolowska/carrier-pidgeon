@@ -10,11 +10,6 @@ import javafx.stage.Stage;
  */
 
 public abstract class MenuController {
-    //todo - rethink how menu should look like
-    @FXML
-    private MenuItem menuHome;
-    @FXML
-    private MenuItem menuLogOut;
     @FXML
     private MenuItem menuQuit;
     @FXML
