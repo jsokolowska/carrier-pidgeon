@@ -15,7 +15,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fx:id="infoMsg" strokeType="OUTSIDE" strokeWidth="0.0" text="You have recieved encrypted message from " wrappingWidth="239.08349609375">
+                  <Text fx:id="infoMsg" strokeType="OUTSIDE" strokeWidth="0.0" text="You have recieved an encrypted message" wrappingWidth="239.08349609375">
                      <HBox.margin>
                         <Insets left="40.0" right="5.0" top="10.0" />
                      </HBox.margin>
