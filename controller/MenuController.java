@@ -1,7 +1,5 @@
 package controller;
 
-import controller.util.FXMLResourcesManager;
-import controller.util.SceneType;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -22,21 +20,6 @@ public abstract class MenuController {
     @FXML
     private MenuBar menuBar;
 
-    @FXML
-    private void goHome(){
-        Stage currStage = (Stage) menuBar.getScene().getWindow();
-//        if(FXMLResourcesManager.getCurrentScene()!= SceneType.MAIN){
-//            currStage.setScene(FXMLResourcesManager.getMainScene());
-//        }
-    }
-
-    @FXML
-    private void logOut(){
-//        if(FXMLResourcesManager.getCurrentScene() == SceneType.MAIN){
-//            //todo waiting: end session and switch scene to welcome
-//        }
-
-    }
 
     @FXML
     private void quit (){

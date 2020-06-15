@@ -1,18 +1,13 @@
 package controller;
 
-import controller.util.Contact;
 import controller.util.ThreadSafeResources;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.ClientThread;
 
-import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 

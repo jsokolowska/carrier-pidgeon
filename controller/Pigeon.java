@@ -25,7 +25,7 @@ public class Pigeon extends Application {
         try{
 
             showWelcomeScreen(peerInfo);
-            if(!peerInfo.getName().equals("")){
+            if(!peerInfo.getName().equals("unknown")){
                 FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/resources/mainView.fxml"));
                 Parent mainRoot = mainLoader.load();
                 MainViewController mainViewController = mainLoader.getController();
@@ -45,7 +45,6 @@ public class Pigeon extends Application {
         }
     }
     private void cleanUpResources (){
-        System.out.println("Cleaning up resources...");
         System.exit(0);
     }
     private void showWelcomeScreen(PeerInfo peerInfo) throws IOException {

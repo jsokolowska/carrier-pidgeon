@@ -1,14 +1,7 @@
 package model;
 
-import controller.DecryptController;
 import controller.util.ThreadSafeResources;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import model.util.CipherBuilder;
 
 import java.io.*;
 import java.net.Socket;

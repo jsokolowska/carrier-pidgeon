@@ -16,7 +16,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Cipher;
-import model.ClientThread;
 import model.util.CipherBuilder;
 import model.util.PeerInfo;
 

@@ -32,7 +32,6 @@ public class ContactInfoController {
         if(lastMsg != null){
             unreadMsg.setVisible(isMsgRead);
             this.lastMsg.setText(lastMsg.getMess().trim());
-            //lastTimestamp.setText(lastMsg.getTimestamp());
         }else{
             unreadMsg.setVisible(false);
             this.lastMsg.setText("");

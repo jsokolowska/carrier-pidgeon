@@ -18,19 +18,12 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 
 public class FXMLResourcesManager {
-    private static SceneType currentScene;
     private ContactInfoController controller;
     private Node contactInfo;
     private Parent message;
     private MessageController messageController;
 
 
-    private static synchronized void setCurrentScene (SceneType type){
-        currentScene = type;
-    }
-    private static synchronized SceneType getCurrentScene (){
-        return currentScene;
-    }
     public FXMLResourcesManager(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/contactInfo.fxml"));
         try{
