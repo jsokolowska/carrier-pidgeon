@@ -41,6 +41,6 @@ public abstract class MenuController {
     @FXML
     private void quit (){
         Stage currStage = (Stage) menuBar.getScene().getWindow();
-        currStage.close();
+        System.exit(0);
     }
 }

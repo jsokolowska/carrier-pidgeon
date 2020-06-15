@@ -69,7 +69,6 @@ public class ClientThread extends Thread
     @Override
     public void run(){
         try{
-            System.out.println("Connecting to socket, ip:"+hostName+" port:"+port);
             socket = new Socket(hostName, port);
 
             String username = ThreadSafeResources.getUsername();
@@ -107,7 +106,6 @@ public class ClientThread extends Thread
             String helloMsg = ThreadSafeResources.getUsername() + sufix;
             output.writeUTF(helloMsg);
             output.writeUTF(Integer.toString(ThreadSafeResources.getPort()));
-            System.out.println("Sending hello message");
             res = true;
             input.close();
             output.close();
@@ -115,6 +113,24 @@ public class ClientThread extends Thread
 
         } catch (IOException ignored) {}
         return res;
+    }
+    public static void helloBack(String ipAddress, int port){
+        try{
+            Socket socket = new Socket(ipAddress, port);
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+            DataOutputStream output= new DataOutputStream(socket.getOutputStream());
+
+            //send hello message
+            String sufix = ":ovrhenloB";
+            String helloMsg = ThreadSafeResources.getUsername() + sufix;
+            output.writeUTF(helloMsg);
+            output.writeUTF(Integer.toString(ThreadSafeResources.getPort()));
+            input.close();
+            output.close();
+            socket.close();
+        }catch (IOException ignored){
+        }
+
     }
     public void connect(BufferedReader bufferedReader) throws IOException
     {

@@ -25,6 +25,7 @@ public class MessageController {
     @FXML
     private Text timestamp;
     private String cipheredText;
+    private String messText = null;
     private boolean tried;
     private boolean ciphered;
 
@@ -50,11 +51,13 @@ public class MessageController {
     private void decrypt(){
         if(ciphered){
             if(tried){
-                msgText.setText(cipheredText + "[This message has already been decrypted]");
+                if(messText==null){
+                    messText = msgText.getText();
+                }
+                msgText.setText(messText +"[This message has already been decrypted]");
             }else{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/decrypt.fxml"));
                 try{
-                    System.out.println("Choosing cipher");
                     Parent root = loader.load();
 
                     DecryptController controller = loader.getController();
@@ -62,12 +65,9 @@ public class MessageController {
                     controller.setCipherBuilder(cipherBuilder);
 
                     Scene scene = new Scene(root);
-                    System.out.println("Gonna run later");
-                    System.out.println("Inside");
                     Stage stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setScene(scene);
-                    System.out.println("Showing...");
                     stage.showAndWait();
 
                     Cipher cipher = cipherBuilder.getCipher();
@@ -79,9 +79,7 @@ public class MessageController {
                     System.out.println("Could not load resources");
                 }
             }
-
         }
-
     }
 
     public void makeMsg(Message msg){

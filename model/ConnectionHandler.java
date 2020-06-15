@@ -56,11 +56,10 @@ public class ConnectionHandler extends Thread {
         String mess = "";
         String userNick = "";
         try{
-            System.out.println("Reading Msg");
             userNick = in.readUTF();
             System.out.println("Nick: " + userNick);
             mess = in.readUTF();
-            System.out.println("Mess " + mess);
+            System.out.println("Mess: " + mess);
         }catch (IOException ioException){
             ioException.printStackTrace();
             LOGGER.info("IOEXception while reading from peer socket");
@@ -71,7 +70,17 @@ public class ConnectionHandler extends Thread {
 
     private void handleMessage(Message msg) throws IOException {
         if(isHelloMsg(msg)) {
-            System.out.println("Received hello message. Tu będzie dodawanie kontaktu");
+            String ipAddress = PEER_SOCKET.getRemoteSocketAddress().toString();
+            ipAddress = ipAddress.replace("/", "");
+            ipAddress = ipAddress.split(":")[0];
+            String clean = msg.getMess().replaceAll("[^\\d.]", "");
+            int port = Integer.parseInt(clean);
+            ClientThread.helloBack(ipAddress, port);
+            ThreadSafeResources.addContactLater(msg.getUserNick().split(":")[0], ipAddress, port);
+
+
+
+        }else if (isHelloBackMsg(msg)){
             String ipAddress = PEER_SOCKET.getRemoteSocketAddress().toString();
             ipAddress = ipAddress.replace("/", "");
             ipAddress = ipAddress.split(":")[0];
@@ -79,7 +88,6 @@ public class ConnectionHandler extends Thread {
             int port = Integer.parseInt(clean);
 
             ThreadSafeResources.addContactLater(msg.getUserNick().split(":")[0], ipAddress, port);
-
         }else{
             System.out.println("Before split: " + msg.getUserNick());
             String[] line = msg.getUserNick().split(":");
@@ -89,10 +97,12 @@ public class ConnectionHandler extends Thread {
             if(line.length>1){
                 if(line[1].equals("true")){
                     ciphered = true;
+                    System.out.println("This msg has been recognized as cyphered");
                 }
             }
             msg.setUserNick(name);
             boolean finalCiphered = ciphered;
+            System.out.println("Adding message as " + finalCiphered);
             Platform.runLater(()->{
                 ThreadSafeResources.addMessage(msg, false, finalCiphered);
             });
@@ -101,6 +111,9 @@ public class ConnectionHandler extends Thread {
     }
     private boolean isHelloMsg(Message msg){
         return msg.getUserNick().endsWith(helloSufix);
+    }
+    private boolean isHelloBackMsg(Message msg){
+        return msg.getUserNick().endsWith(helloSufix+"B");
     }
 
 }

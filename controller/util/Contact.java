@@ -66,7 +66,7 @@ public class Contact {
                 messages.add(message);
             }
 
-            this.controller.showNewMessage(msg);
+            this.controller.showNewMessage(msg, ciphered);
 
         } catch (IOException exception) {
             exception.printStackTrace();

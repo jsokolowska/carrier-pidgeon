@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 import model.ClientThread;
 
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 
 
 /**
@@ -27,8 +29,6 @@ public class NewConnectionController {
     @FXML
     private TextField peerIP;
     @FXML
-    private TextField peerName;
-    @FXML
     private TextField peerPort;
     @FXML
     private Text errorMsg;
@@ -42,36 +42,30 @@ public class NewConnectionController {
     @FXML
     private void tryToConnect (){
         String hostIP = peerIP.getText();
-        String name = peerName.getText();
         try{
             int portNum = Integer.parseInt(peerPort.getText());
-            boolean success = ClientThread.checkConnection(hostIP, portNum);
-            if(success){
-                if(ThreadSafeResources.exists(name)){
-                    errorMsg.setText("Contact already created");
-                }else{
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/contactInfo.fxml"));
-                        Parent contact = loader.load();
-                        ContactInfoController controller = loader.getController();
-                        controller.makeContact(name, false);
-                        VBox mbox = FXMLLoader.load(getClass().getResource("/resources/innerMsgBox.fxml"));
-                        Contact newContact = new Contact(controller, mbox, hostIP, portNum);
-                        ThreadSafeResources.addContact(newContact, contact);
+            String localhost="";
+            try{
+                localhost = Inet4Address.getLocalHost().toString();
+            }catch (UnknownHostException ignored){}
 
-                    }catch (IOException ex){
-                        System.out.println("Could not load resources");
-                    }
-                    System.out.println("Closing scene!");
-                    Stage currStage = (Stage)connectButton.getScene().getWindow();
-                    currStage.close();
-                }
+            boolean success = false;
+            if(!(portNum==ThreadSafeResources.getPort() && localhost.contains(hostIP))){
+                success = ClientThread.checkConnection(hostIP, portNum);
+
+            }
+            if(success){
+                Stage currStage = (Stage)connectButton.getScene().getWindow();
+                currStage.close();
 
             }else{
                 errorMsg.setText("Wrong credentials");
                 errorMsg.setVisible(true);
                 clean();
             }
+
+
+
         }catch (NumberFormatException ex ){
             errorMsg.setText("Wrong credentials");
             errorMsg.setVisible(true);
@@ -87,9 +81,7 @@ public class NewConnectionController {
     }
 
     private void clean(){
-        //errorMsg.setText("");
         peerIP.setText("");
-        peerName.setText("");
         peerPort.setText("");
     }
 }

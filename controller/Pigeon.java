@@ -60,7 +60,5 @@ public class Pigeon extends Application {
         welcomeStage.setTitle("Log in");
         welcomeStage.setScene(welcomeScene);
         welcomeStage.showAndWait();
-
-        System.out.println(peerInfo);
     }
 }

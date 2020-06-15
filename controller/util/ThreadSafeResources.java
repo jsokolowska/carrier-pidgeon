@@ -64,21 +64,26 @@ public class ThreadSafeResources {
         // addContact(contact, contactInfo);
     }
     public static void addContactLater(String contactName, String ipAddress, int port){
-        FXMLResourcesManager manager = new FXMLResourcesManager();
-        ContactInfoController controller = manager.getController();
-        Node contactInfo = manager.getContactInfo();
-        controller.makeContact(contactName);
-        Contact contact = new Contact(controller,outerMsgBox, ipAddress, port);
-         addContactLater(contact, contactInfo);
+        if (!exists(contactName)){
+            FXMLResourcesManager manager = new FXMLResourcesManager();
+            ContactInfoController controller = manager.getController();
+            Node contactInfo = manager.getContactInfo();
+            controller.makeContact(contactName);
+            Contact contact = new Contact(controller,outerMsgBox, ipAddress, port);
+            addContactLater(contact, contactInfo);
+        }
+
     }
     public static void addContactLater(@NotNull Contact contact, Node contactNode){
-        Platform.setImplicitExit(false);
-        Platform.runLater(()->{
-            System.out.println("Inside run later");
-            addContactInfo(contactNode);
-        });
-        addContactName(contact.getName());
-        contacts.put(contact.getName(), contact);
+        if(!exists(contact.getName())){
+            Platform.setImplicitExit(false);
+            Platform.runLater(()->{
+                addContactInfo(contactNode);
+            });
+            addContactName(contact.getName());
+            contacts.put(contact.getName(), contact);
+        }
+
 
     }
 
@@ -91,7 +96,6 @@ public class ThreadSafeResources {
     }
 
     public synchronized static void addMessage(Message msg, boolean mine, boolean ciphered){
-        System.out.println("Looking for contact with name " + msg.getUserNick());
         String name = msg.getUserNick();
         String currname = displayedContactName.getText();
         if(name.equals(currname)){
@@ -100,18 +104,16 @@ public class ThreadSafeResources {
             if (ciphered){
                 controller.makeCipheredMsg(msg.getMess());
             }else{
-                controller.makeCipheredMsg(msg.getMess());
+                controller.makeMsg(msg.getMess());
             }
             Node message = manager.getMessage();
             outerMsgBox.getChildren().add(message);
-            System.out.println("Message added");
         }else{
             Contact contact = contacts.get(msg.getUserNick());
             if(contact==null){
                 System.out.println("Couldnt find contact by name [" + msg.getUserNick()+"]");
             }else{
                 contact.addMessage(msg, mine, ciphered);
-                System.out.println("Message added");
             }
         }
 

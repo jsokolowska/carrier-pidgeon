@@ -49,12 +49,17 @@ public class ContactInfoController {
         makeContact(contactName, false, null);
     }
 
-    public void showNewMessage( @NotNull Message lastMessage){
+    public void showNewMessage( @NotNull Message lastMessage, boolean ciphered){
         unreadMsg.setVisible(true);
         LocalTime time = LocalTime.now();
         String timestamp = String.format("%02d", time.getHour())+ ":" + String.format("%02d", time.getMinute());
         lastTimestamp.setText(timestamp);
-        this.lastMsg.setText(lastMessage.getMess().trim());
+        if(ciphered){
+            this.lastMsg.setText("<ciphered>");
+        }else{
+            this.lastMsg.setText(lastMessage.getMess().trim());
+        }
+
     }
     @FXML
     private void openConversation(){
